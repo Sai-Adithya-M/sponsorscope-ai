@@ -35,6 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Pre-render clean baseline data on startup
   runInitialBaseline();
+
+  // Check URL hash for direct tab navigation
+  if (window.location.hash) {
+    const tabName = window.location.hash.replace("#", "");
+    const targetTab = document.querySelector(`.clean-tab[data-tab="${tabName}"]`);
+    if (targetTab) {
+      setTimeout(() => targetTab.click(), 150);
+    }
+  }
 });
 
 // 1. Clean Rectangular Tabs
