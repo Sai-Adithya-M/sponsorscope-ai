@@ -1,0 +1,41 @@
+deal_id,platform,niche,followers,median_views,engagement_rate,deliverables,exclusivity_days,offered_amount,countered_amount,final_payout,accepted,brand_tier
+D1001,YouTube,Tech & Software,45000,18500,4.2,60s Integrated,30,400,950,850,1,Growth
+D1002,YouTube,Tech & Software,82000,32000,3.8,60s Integrated + Pinned Link,30,800,1650,1500,1,Enterprise
+D1003,YouTube,Finance & Investing,28000,14000,5.1,60s Integrated,0,600,1400,1250,1,Enterprise
+D1004,Newsletter,Tech & AI,15000,6800,45.3,Dedicated Header + Blurb,0,250,600,550,1,Growth
+D1005,Podcast,Business & Marketing,22000,9500,6.0,30s Mid-Roll,0,300,750,700,1,Mid-Market
+D1006,TikTok,Developer Tools,110000,48000,6.8,Dedicated 45s Video,14,500,1200,1100,1,Growth
+D1007,YouTube,Gaming & Esports,140000,52000,3.1,60s Integrated,0,700,1400,1300,1,Enterprise
+D1008,YouTube,Tech & Software,62000,24000,4.0,60s Integrated,60,500,1800,600,0,Enterprise
+D1009,Newsletter,Finance & Crypto,32000,14500,42.0,Dedicated Blast,0,800,1950,1800,1,Growth
+D1010,Podcast,Tech & Startups,35000,16000,5.5,60s Pre-roll + 60s Mid-roll,30,650,1550,1400,1,Enterprise
+D1011,YouTube,Education & Coding,55000,21000,4.5,Dedicated Video,30,1200,2800,2600,1,Mid-Market
+D1012,YouTube,Tech & Software,95000,39000,3.6,60s Integrated,30,900,2100,1950,1,Enterprise
+D1013,TikTok,Lifestyle & Gear,75000,31000,5.2,30s Dedicated,0,350,850,750,1,Growth
+D1014,Newsletter,Health & Productivity,18000,7200,40.1,Sponsored Section,0,300,650,600,1,Growth
+D1015,Podcast,True Crime & Culture,85000,42000,4.8,60s Mid-roll,0,800,1700,1600,1,Enterprise
+D1016,YouTube,Finance & Real Estate,65000,28000,4.9,60s Integrated,30,1000,2600,2400,1,Enterprise
+D1017,YouTube,Tech & Software,18000,7500,5.8,60s Integrated,0,250,550,500,1,Growth
+D1018,Newsletter,Web Development,24000,11000,44.5,Top Banner + 100 words,0,450,1050,950,1,Mid-Market
+D1019,Podcast,AI & Future Tech,40000,19000,5.8,60s Mid-roll + Newsletter Shoutout,30,750,1900,1750,1,Growth
+D1020,TikTok,Tech Reviews,220000,90000,6.1,60s Product Showcase,0,1000,2400,2200,1,Enterprise
+D1021,YouTube,Tech & Software,125000,54000,3.5,60s Integrated,30,1200,2900,2700,1,Enterprise
+D1022,YouTube,Design & Creative,38000,15000,4.4,60s Integrated,14,350,850,800,1,Growth
+D1023,Newsletter,Indie Hackers & Startups,12000,5600,48.0,Dedicated Blast,0,300,700,650,1,Growth
+D1024,Podcast,Fitness & Longevity,50000,23000,5.0,60s Mid-roll,30,700,1600,1450,1,Enterprise
+D1025,YouTube,Finance & Crypto,92000,41000,4.7,60s Integrated,60,1500,4200,3800,1,Enterprise
+D1026,YouTube,Tech & Software,48000,19500,4.1,60s Integrated,30,450,1100,1000,1,Mid-Market
+D1027,TikTok,Coding Memes & Tips,180000,78000,7.2,30s Integration,0,600,1500,1350,1,Growth
+D1028,Newsletter,Cybersecurity,29000,13500,43.2,Main Feature Ad,30,750,1800,1650,1,Enterprise
+D1029,Podcast,DevOps & Cloud,31000,13800,5.3,60s Mid-roll,14,500,1250,1150,1,Enterprise
+D1030,YouTube,Tech & Software,210000,85000,3.2,60s Integrated,30,2000,4600,4200,1,Enterprise
+D1031,YouTube,Mechanical Keyboards & Desk Setup,42000,18000,5.9,Dedicated Showcase,30,600,1500,1400,1,Mid-Market
+D1032,Newsletter,AI Prompt Engineering,45000,20500,46.0,Dedicated Newsletter,0,1100,2600,2400,1,Enterprise
+D1033,YouTube,Finance & Passive Income,72000,33000,5.0,60s Integrated,30,1100,2900,2700,1,Enterprise
+D1034,Podcast,SaaS Founders,19000,8200,6.2,30s Pre-roll + 60s Mid-roll,0,400,950,900,1,Growth
+D1035,YouTube,Tech & Software,34000,13500,4.6,60s Integrated,0,300,750,700,1,Growth
+D1036,TikTok,Finance Tips,95000,41000,5.5,60s Video,0,500,1300,1150,1,Growth
+D1037,YouTube,Data Science & ML,60000,25000,4.8,60s Integrated + GitHub link,30,800,1950,1850,1,Enterprise
+D1038,Newsletter,No-Code & Automation,16000,7400,44.0,Sponsored Blurb,0,280,650,600,1,Growth
+D1039,Podcast,Product Management,27000,11800,5.4,60s Mid-roll,0,450,1100,1000,1,Mid-Market
+D1040,YouTube,Tech & Software,150000,62000,3.4,60s Integrated,30,1400,3400,3100,1,Enterprise
