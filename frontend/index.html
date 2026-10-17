@@ -7,13 +7,10 @@
   <meta name="description" content="Predict creator sponsorship fair market value, calculate deal win probability curves with TabPFN, and generate high-converting counter-pitches with Gemma 2.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
-  <!-- Ambient Top Glow Beam -->
-  <div class="top-glow-beam"></div>
 
   <!-- Navigation Bar -->
   <header class="navbar">
@@ -22,170 +19,60 @@
         <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
       <div class="logo-text">
-        <div class="logo-title-row">
-          <h1>SponsorScope <span class="brand-accent">AI</span></h1>
-          <span class="version-tag">v1.2 · Side Hustle</span>
-        </div>
-        <span class="logo-subtitle">Bayesian Creator Valuation & Autonomous Negotiation Agent</span>
+        <h1>SponsorScope <span class="brand-accent">AI</span></h1>
+        <span class="logo-subtitle">Creator Deal Valuation & Negotiation Agent</span>
       </div>
     </div>
     
-    <div class="nav-badges">
-      <div class="system-monitor">
-        <div class="monitor-pill">
-          <span class="pulse-dot green"></span>
-          <span class="monitor-text">TabPFN-3.5: <strong>99.4% Conf.</strong></span>
-        </div>
-        <div class="monitor-pill">
-          <span class="pulse-dot purple"></span>
-          <span class="monitor-text">Gemma 2: <strong>Ready</strong></span>
-        </div>
-      </div>
-
-      <div class="nav-links">
-        <a href="https://dev.to/challenges/hacktoberfest-week2-2026-10-12" target="_blank" class="nav-link badge-hf26">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          DEV Challenge
-        </a>
-      </div>
+    <div class="nav-links">
+      <span class="tech-pill">Prior Labs TabPFN-3.5</span>
+      <span class="tech-pill">Gemma 2</span>
+      <a href="https://dev.to/challenges/hacktoberfest-week2-2026-10-12" target="_blank" class="nav-link">
+        Hacktoberfest W2
+      </a>
     </div>
   </header>
 
-  <!-- Live Market Deal Ticker -->
-  <div class="ticker-wrapper">
-    <div class="ticker-label">
-      <span class="pulse-dot green"></span>
-      <span>LIVE BENCHMARKS</span>
-    </div>
-    <div class="ticker-marquee">
-      <div class="ticker-content">
-        <span class="ticker-item"><span class="highlight">NordVPN</span> YouTube Integration: Countered $450 ➔ <strong>$1,490 (+231%)</strong> [74% Acceptance Odds]</span>
-        <span class="ticker-separator">✦</span>
-        <span class="ticker-item"><span class="highlight">Notion</span> Newsletter Blurb: Countered $300 ➔ <strong>$980 (+226%)</strong> [81% Acceptance Odds]</span>
-        <span class="ticker-separator">✦</span>
-        <span class="ticker-item"><span class="highlight">Supabase</span> Podcast Mid-Roll: Countered $700 ➔ <strong>$1,850 (+164%)</strong> [68% Acceptance Odds]</span>
-        <span class="ticker-separator">✦</span>
-        <span class="ticker-item"><span class="highlight">1,200+ Verified Deals</span> in Prior Labs TabPFN-3.5 Bayesian Training Matrix</span>
-        <span class="ticker-separator">✦</span>
-        <span class="ticker-item"><span class="highlight">Datadog</span> Video + Dedicated Post: Countered $1,200 ➔ <strong>$2,650 (+120%)</strong></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Hero Section -->
-  <section class="hero-banner">
-    <div class="hero-pill-badge">
-      <span class="sparkle">✦</span>
-      <span>HACKTOBERFEST 2026 · SIDE HUSTLE CHALLENGE</span>
-    </div>
-    <h2 class="hero-title">
-      Turn Lowball Inbounds Into <span class="text-gradient">Maximized Deals</span>.
+  <!-- Clean Minimalist Header -->
+  <section class="header-section">
+    <h2 class="header-title">
+      Turn Inbound Inquiries Into <span class="text-gradient">Maximized Deals</span>.
     </h2>
-    <p class="hero-subtitle">
-      Stop guessing your rate. Parse inbound sponsor emails with <strong>Google Gemma 2</strong>, calculate fair market value and continuous win-odds curves with <strong>Prior Labs TabPFN-3.5</strong>, and counter-offer like an elite talent agency.
+    <p class="header-subtitle">
+      Extract commercial terms with <strong>Gemma 2</strong>, calculate fair market value and win probability curves with <strong>TabPFN-3.5</strong>, and counter-offer with confidence.
     </p>
-
-    <!-- 1-Click Interactive Presets -->
-    <div class="presets-container">
-      <div class="presets-header-line">
-        <span class="presets-label">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          Instant Creator Test Scenarios:
-        </span>
-        <span class="presets-hint">Click any deal to auto-simulate negotiation</span>
-      </div>
-
-      <div class="presets-bar">
-        <button class="preset-btn active" id="btnPresetNord">
-          <span class="preset-icon-badge red">YT</span>
-          <div class="preset-btn-text">
-            <span class="preset-name">NordVPN</span>
-            <span class="preset-offer">$450 Lowball</span>
-          </div>
-          <span class="preset-stat-tag loss">-68% FMV</span>
-        </button>
-
-        <button class="preset-btn" id="btnPresetNotion">
-          <span class="preset-icon-badge yellow">NL</span>
-          <div class="preset-btn-text">
-            <span class="preset-name">Notion</span>
-            <span class="preset-offer">$300 Blurb</span>
-          </div>
-          <span class="preset-stat-tag loss">-69% FMV</span>
-        </button>
-
-        <button class="preset-btn" id="btnPresetSupabase">
-          <span class="preset-icon-badge green">POD</span>
-          <div class="preset-btn-text">
-            <span class="preset-name">Supabase</span>
-            <span class="preset-offer">$700 Flight</span>
-          </div>
-          <span class="preset-stat-tag loss">-62% FMV</span>
-        </button>
-
-        <button class="preset-btn" id="btnPresetDatadog">
-          <span class="preset-icon-badge purple">B2B</span>
-          <div class="preset-btn-text">
-            <span class="preset-name">Datadog</span>
-            <span class="preset-offer">$1,200 Video</span>
-          </div>
-          <span class="preset-stat-tag loss">-55% FMV</span>
-        </button>
-      </div>
-    </div>
   </section>
 
-  <!-- Main Dual-Pane Workspace Grid -->
+  <!-- Main Dual-Pane Workspace -->
   <main class="workspace-grid">
 
-    <!-- Left Column: Input Workbench -->
-    <div class="glass-panel" id="inputPanel">
+    <!-- Left Column: Clean Input Panel -->
+    <section class="panel" id="inputPanel">
       <div class="panel-header">
-        <div class="panel-title">
-          <div class="panel-title-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <span>Creator Profile & Deal Intake</span>
-        </div>
-        <div class="panel-status-badge">
-          <span class="pulse-dot green"></span>
-          <span>Inputs Ready</span>
-        </div>
+        <h3 class="panel-title">Deal Intake & Channel Profile</h3>
       </div>
 
       <!-- Channel Profile Inputs -->
       <div class="form-grid-2">
         <div class="form-group">
-          <label class="form-label" for="creatorName">
-            <span>Creator Handle</span>
-            <span class="helper">Public profile</span>
-          </label>
-          <div class="input-with-icon">
-            <span class="input-icon">@</span>
-            <input type="text" class="form-input with-icon" id="creatorName" value="Alex Rivers (@devpulse)">
-          </div>
+          <label class="form-label" for="creatorName">Creator / Handle</label>
+          <input type="text" class="form-input" id="creatorName" placeholder="e.g. Alex Rivers (@devpulse)">
         </div>
         <div class="form-group">
-          <label class="form-label" for="platformSelect">
-            <span>Primary Platform</span>
-            <span class="helper">Format</span>
-          </label>
+          <label class="form-label" for="platformSelect">Primary Platform</label>
           <select class="form-select" id="platformSelect">
-            <option value="YouTube" selected>YouTube (Dedicated / Mid-Roll)</option>
+            <option value="YouTube" selected>YouTube Video</option>
             <option value="Newsletter">Newsletter / Substack</option>
             <option value="Podcast">Podcast Audio</option>
             <option value="TikTok">TikTok / Shorts</option>
-            <option value="X / Twitter">X / Twitter Thread</option>
+            <option value="X / Twitter">X / Twitter</option>
           </select>
         </div>
       </div>
 
       <div class="form-grid-2">
         <div class="form-group">
-          <label class="form-label" for="nicheSelect">
-            <span>Audience Niche</span>
-            <span class="helper">CPM driver</span>
-          </label>
+          <label class="form-label" for="nicheSelect">Audience Niche</label>
           <select class="form-select" id="nicheSelect">
             <option value="Tech & Software" selected>Tech & Software</option>
             <option value="Finance & Investing">Finance & Investing</option>
@@ -199,297 +86,137 @@
           </select>
         </div>
         <div class="form-group">
-          <div class="label-with-chips">
-            <label class="form-label" for="followerCount">
-              <span>Audience / Subs</span>
-            </label>
-            <div class="quick-chips">
-              <button type="button" class="quick-chip" data-val="25000">25k</button>
-              <button type="button" class="quick-chip active" data-val="52000">52k</button>
-              <button type="button" class="quick-chip" data-val="100000">100k</button>
-            </div>
-          </div>
-          <input type="number" class="form-input" id="followerCount" value="52000">
+          <label class="form-label" for="followerCount">Total Subscribers / Followers</label>
+          <input type="number" class="form-input" id="followerCount" placeholder="50000" value="50000">
         </div>
       </div>
 
       <div class="form-grid-2">
         <div class="form-group">
-          <label class="form-label" for="medianViews">
-            <span>Median Views / Opens</span>
-            <span class="helper">30-day avg</span>
-          </label>
-          <input type="number" class="form-input" id="medianViews" value="22000">
+          <label class="form-label" for="medianViews">Median Views / Opens (30-day)</label>
+          <input type="number" class="form-input" id="medianViews" placeholder="20000" value="20000">
         </div>
         <div class="form-group">
-          <label class="form-label" for="engagementRate">
-            <span>Engagement Rate (%)</span>
-            <span class="helper">Benchmark: 3.8%</span>
-          </label>
-          <input type="number" step="0.1" class="form-input" id="engagementRate" value="4.6">
+          <label class="form-label" for="engagementRate">Engagement Rate (%)</label>
+          <input type="number" step="0.1" class="form-input" id="engagementRate" placeholder="4.5" value="4.5">
         </div>
       </div>
 
-      <!-- Inbound Email Textarea in Superhuman/Mail Mockup -->
-      <div class="form-group" style="margin-top: 0.75rem;">
-        <label class="form-label">
-          <span>Inbound Sponsor Email</span>
-          <span class="helper">Raw commercial solicitation</span>
-        </label>
-        
-        <div class="inbox-mockup">
-          <div class="inbox-toolbar">
-            <div class="window-dots">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="inbox-header-meta">
-              <span class="inbox-tag">inbound_proposal.eml</span>
-              <span class="inbox-badge-detected" id="inboundBrandTag">NordVPN</span>
-            </div>
-            <button type="button" class="inbox-clear-btn" id="btnClearEmail" title="Clear text">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-
-          <div class="inbox-sender-bar">
-            <div class="inbox-sender-info">
-              <div class="sender-avatar">SP</div>
-              <div>
-                <div class="sender-name">Sponsor Partnerships Team</div>
-                <div class="sender-subject">Subject: alex@devpulse - Sponsored Video Opportunity</div>
-              </div>
-            </div>
-            <span class="inbox-date">Today, 10:24 AM</span>
-          </div>
-
-          <textarea class="form-textarea" id="emailInput" placeholder="Paste the raw brand sponsorship email here..."></textarea>
+      <!-- Inbound Email Textarea -->
+      <div class="form-group" style="margin-top: 0.5rem;">
+        <div class="label-row">
+          <label class="form-label" for="emailInput">Inbound Sponsor Email</label>
+          <button type="button" class="btn-text" id="btnClearEmail">Clear</button>
         </div>
+        <textarea class="form-textarea" id="emailInput" placeholder="Paste the raw sponsor inquiry email here...
+Example:
+'Hi Alex, we'd love to sponsor a 60s integration on your next video. We can offer $450 flat with 30-day category exclusivity. Let us know if you have availability!'"></textarea>
       </div>
 
-      <!-- Action Button with Radiant Shimmer -->
+      <!-- Submit Button -->
       <button class="btn-primary" id="btnAnalyze">
-        <span class="btn-shimmer"></span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        <span id="btnAnalyzeText">Run TabPFN & Gemma Analysis</span>
+        <span id="btnAnalyzeText">Analyze Deal with AI</span>
       </button>
 
-      <!-- Analysis Status Pipeline Tracker -->
-      <div class="pipeline-progress" id="pipelineProgress" style="display: none;">
-        <div class="pipeline-step active" id="stepGemma">
-          <span class="step-num">1</span>
-          <span class="step-label">Gemma Parsing</span>
-        </div>
-        <div class="pipeline-step-line"></div>
-        <div class="pipeline-step" id="stepTabpfn">
-          <span class="step-num">2</span>
-          <span class="step-label">TabPFN Bayesian Valuation</span>
-        </div>
-        <div class="pipeline-step-line"></div>
-        <div class="pipeline-step" id="stepPitch">
-          <span class="step-num">3</span>
-          <span class="step-label">Counter-Pitch Gen</span>
-        </div>
+      <div class="privacy-caption">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Data processed in-session. Deal terms remain private.</span>
       </div>
+    </section>
 
-      <div class="privacy-note">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        <span>Zero Data Leaks: Deal rates and negotiation drafts remain confidential to you.</span>
-      </div>
-    </div>
-
-    <!-- Right Column: Predictive Results Workbench -->
-    <div class="glass-panel" id="resultsPanel">
+    <!-- Right Column: Results Panel -->
+    <section class="panel" id="resultsPanel">
       
-      <!-- Segmented Control Tabs -->
+      <!-- Clean Segmented Tabs -->
       <nav class="tabs-nav">
-        <button class="tab-btn active" data-tab="tabValuation">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          <span>TabPFN Valuation</span>
-          <span class="tab-indicator-dot"></span>
-        </button>
-        <button class="tab-btn" data-tab="tabPitch">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span>Gemma Counter-Pitch</span>
-        </button>
-        <button class="tab-btn" data-tab="tabIntel">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <span>Brand Intel</span>
-        </button>
-        <button class="tab-btn" data-tab="tabSubmission">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          <span>DEV Writeup</span>
-        </button>
+        <button class="tab-btn active" data-tab="tabValuation">TabPFN Valuation</button>
+        <button class="tab-btn" data-tab="tabPitch">Gemma Counter-Pitch</button>
+        <button class="tab-btn" data-tab="tabIntel">Brand Intel</button>
+        <button class="tab-btn" data-tab="tabSubmission">DEV Writeup</button>
       </nav>
 
       <!-- TAB 1: TabPFN Valuation & Probability Curve -->
       <div class="tab-content" id="tabValuation">
         
-        <!-- Summary Metrics Row (3 HUD Cards) -->
+        <!-- Summary Metrics Row (3 Clean Cards) -->
         <div class="metrics-row">
-          <div class="metric-card gold">
-            <div class="metric-header">
-              <span class="metric-label">Initial Offer</span>
-              <span class="metric-pill pill-loss">Lowball</span>
-            </div>
+          <div class="metric-card">
+            <span class="metric-label">Initial Offer</span>
             <div class="metric-val" id="metricOffer">$450</div>
-            <div class="metric-sub" id="metricDeliverable">60s Integration</div>
-            <div class="metric-delta delta-loss">14th Percentile of Market</div>
+            <div class="metric-sub" id="metricDeliverable">Standard Integration</div>
           </div>
 
-          <div class="metric-card cyan">
-            <div class="metric-header">
-              <span class="metric-label">Fair Market Value</span>
-              <span class="metric-pill pill-cyan">TabPFN Prior</span>
-            </div>
+          <div class="metric-card highlight">
+            <span class="metric-label">Fair Market Value</span>
             <div class="metric-val text-cyan" id="metricFmv">$1,420</div>
-            <div class="metric-sub">Effective CPM: <strong id="metricCpm" style="color: var(--accent-cyan);">$64.50</strong></div>
-            <div class="metric-delta delta-neutral">Benchmark: $55–$75 CPM</div>
+            <div class="metric-sub">Effective CPM: <span id="metricCpm">$64.50</span></div>
           </div>
 
-          <div class="metric-card emerald">
-            <div class="metric-header">
-              <span class="metric-label">Optimal Counter-Rate</span>
-              <span class="metric-pill pill-emerald">Max $EV Peak</span>
-            </div>
+          <div class="metric-card">
+            <span class="metric-label">Optimal Counter ($EV)</span>
             <div class="metric-val text-emerald" id="metricCounter">$1,490</div>
-            <div class="metric-sub">
-              <span>Acceptance Odds:</span>
-              <strong id="metricWinProb" style="color: var(--accent-emerald);">74%</strong>
-            </div>
-            <div class="metric-delta delta-gain" id="metricGain">+$1,040 Upside Potential</div>
+            <div class="metric-sub">Win Odds: <strong id="metricWinProb" class="text-emerald">74%</strong></div>
           </div>
         </div>
 
-        <!-- Underpricing Warning Banner -->
-        <div class="lowball-alert" id="lowballBanner">
-          <div class="lowball-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          </div>
-          <div class="lowball-text">
-            <strong>Severe Underpricing Detected:</strong> The brand offered <strong>$450</strong>, leaving <strong id="underpriceDiff" style="color: #f43f5e;">$970 (68%)</strong> on the table compared to TabPFN fair market valuation.
+        <!-- Clean Underpricing Warning Banner -->
+        <div class="alert-banner" id="lowballBanner">
+          <div class="alert-icon">⚠️</div>
+          <div class="alert-text" id="lowballText">
+            Underpricing Detected: Brand offered $450 vs $1,420 TabPFN fair market valuation.
           </div>
         </div>
 
         <!-- Interactive Acceptance Probability Curve Canvas -->
-        <div class="curve-panel">
-          <div class="curve-header">
+        <div class="chart-box">
+          <div class="chart-header">
             <div>
-              <div class="curve-title-row">
-                <h4>TabPFN Bayesian Win Probability Curve</h4>
-                <span class="badge badge-tabpfn">
-                  <span class="pulse-dot green"></span> Continuous Prior
-                </span>
-              </div>
-              <p>Models brand acceptance probability $P(\text{Brand Accepts} \mid \text{Rate})$ across 1,200+ verified comps.</p>
+              <h4 class="chart-title">Bayesian Acceptance Probability Curve</h4>
+              <p class="chart-sub">Prior Labs TabPFN-3.5 win probability distribution $P(\text{Brand Accepts} \mid \text{Rate})$</p>
             </div>
-            <div class="curve-zone-legends">
-              <span class="legend-chip safe">Safe (>75%)</span>
-              <span class="legend-chip sweet">Sweet Spot ($EV)</span>
-              <span class="legend-chip risk">Danger (&lt;40%)</span>
-            </div>
+            <span class="chart-tag">1,200+ Comps</span>
           </div>
 
-          <div class="canvas-container">
+          <div class="canvas-wrap">
             <canvas id="probCanvas"></canvas>
-            <div class="canvas-hint-overlay">Hover or scrub to simulate any counter-offer rate</div>
           </div>
 
-          <div class="slider-group">
+          <div class="slider-box">
             <div class="slider-header">
-              <div class="slider-title-col">
-                <span class="label">Interactive Rate Counter-Offer:</span>
-                <span class="slider-sub">Drag slider or click any point on graph to recalculate odds</span>
-              </div>
-              <div class="slider-val-box">
-                <span class="slider-val" id="sliderVal">$1,490</span>
-              </div>
+              <span class="slider-label">Target Counter-Offer:</span>
+              <span class="slider-val" id="sliderVal">$1,490</span>
             </div>
-
-            <div class="slider-track-wrap">
-              <input type="range" id="priceSlider" min="300" max="3000" step="25" value="1490">
-            </div>
-
-            <!-- Quick Jump Buttons -->
-            <div class="quick-jump-bar">
-              <span class="quick-jump-label">Quick Jumps:</span>
-              <button type="button" class="quick-jump-btn" id="btnJumpSafe">🛡 Safe: $1,160 (92%)</button>
-              <button type="button" class="quick-jump-btn active" id="btnJumpEv">⚡ Optimal EV: $1,490 (74%)</button>
-              <button type="button" class="quick-jump-btn" id="btnJumpAgg">🔥 Aggressive: $1,920 (39%)</button>
-            </div>
-
-            <div class="slider-stats">
-              <div class="slider-stat-item">
-                <span class="stat-name">Brand Acceptance Odds:</span>
-                <strong id="sliderProb" class="stat-val text-emerald">74%</strong>
-              </div>
-              <div class="slider-stat-item">
-                <span class="stat-name">Expected Deal Value ($EV = Price × Odds):</span>
-                <strong id="sliderEv" class="stat-val text-cyan">$1,102</strong>
-              </div>
+            <input type="range" id="priceSlider" min="300" max="3000" step="25" value="1490">
+            <div class="slider-readout">
+              <span>Acceptance Odds: <strong id="sliderProb" class="text-emerald">74%</strong></span>
+              <span>Expected Deal Value ($EV): <strong id="sliderEv" class="text-cyan">$1,102</strong></span>
             </div>
           </div>
         </div>
 
-        <!-- Strategy Tiers -->
-        <div class="section-subhead">
-          <div>
-            <h4>Recommended Strategy Tiers</h4>
-            <p>Select a strategic posture to update the slider and tailor the Gemma counter-pitch</p>
-          </div>
-          <span class="section-tag">TabPFN Quantiles</span>
-        </div>
-
+        <!-- Clean Strategy Tiers -->
+        <div class="tiers-title">Recommended Strategy Tiers</div>
         <div class="tiers-grid">
-          <div class="tier-box" id="tierConservative" data-tier="conservative">
-            <div class="tier-top-row">
-              <div class="tier-badge">Conservative</div>
-              <span class="tier-prob-pill safe">92% Odds</span>
-            </div>
-            <div class="tier-price" id="tierPriceCons">$1,160</div>
-            <div class="tier-odds-bar"><div class="tier-odds-fill" style="width: 92%; background: #10b981;"></div></div>
-            <div class="tier-desc">Safe & swift close. Perfect if you need guaranteed cash flow or are establishing a new sponsor relationship.</div>
-            <div class="tier-select-indicator">Click to Apply Tier</div>
+          <div class="tier-card" id="tierConservative" data-tier="conservative">
+            <div class="tier-name">Conservative</div>
+            <div class="tier-rate" id="tierPriceCons">$1,160</div>
+            <div class="tier-odds text-emerald" id="tierProbCons">92% Acceptance Odds</div>
+            <p class="tier-caption">Safe & rapid close. Ideal for steady cash flow.</p>
           </div>
 
-          <div class="tier-box selected recommended" id="tierBalanced" data-tier="balanced">
-            <div class="tier-floating-pill">Recommended ($EV Peak)</div>
-            <div class="tier-top-row">
-              <div class="tier-badge text-cyan">Balanced EV</div>
-              <span class="tier-prob-pill sweet">74% Odds</span>
-            </div>
-            <div class="tier-price text-cyan" id="tierPriceBal">$1,490</div>
-            <div class="tier-odds-bar"><div class="tier-odds-fill" style="width: 74%; background: #00f2fe;"></div></div>
-            <div class="tier-desc">Statistical sweet spot maximizing total expected revenue ($EV = $1,102). Best balance of upside vs ghost risk.</div>
-            <div class="tier-select-indicator">Selected Tier</div>
+          <div class="tier-card active" id="tierBalanced" data-tier="balanced">
+            <div class="tier-badge-pill">Optimal $EV</div>
+            <div class="tier-name text-cyan">Balanced EV</div>
+            <div class="tier-rate text-cyan" id="tierPriceBal">$1,490</div>
+            <div class="tier-odds text-cyan" id="tierProbBal">74% Acceptance Odds</div>
+            <p class="tier-caption">Maximizes total expected return ($EV).</p>
           </div>
 
-          <div class="tier-box" id="tierAggressive" data-tier="aggressive">
-            <div class="tier-top-row">
-              <div class="tier-badge text-purple">Aggressive</div>
-              <span class="tier-prob-pill risk">39% Odds</span>
-            </div>
-            <div class="tier-price" id="tierPriceAgg">$1,920</div>
-            <div class="tier-odds-bar"><div class="tier-odds-fill" style="width: 39%; background: #f59e0b;"></div></div>
-            <div class="tier-desc">Top-tier enterprise rate. Best for heavily funded B2B/cybersecurity brands with high customer lifetime value.</div>
-            <div class="tier-select-indicator">Click to Apply Tier</div>
-          </div>
-        </div>
-
-        <!-- Smart Upsell Bundles with Live Dynamic Checkboxes -->
-        <div class="bundles-panel">
-          <div class="bundles-panel-header">
-            <div>
-              <div class="bundles-title-row">
-                <h4>Value-Add Bundle Expansion Packages</h4>
-                <span class="badge badge-emerald">+35% Avg Deal Expansion</span>
-              </div>
-              <p>Add commercial deliverables to justify higher rates without risking brand walkaway.</p>
-            </div>
-          </div>
-          <div id="bundlesList">
-            <!-- Dynamically populated via app.js with checkboxes -->
+          <div class="tier-card" id="tierAggressive" data-tier="aggressive">
+            <div class="tier-name">Aggressive</div>
+            <div class="tier-rate" id="tierPriceAgg">$1,920</div>
+            <div class="tier-odds text-amber" id="tierProbAgg">39% Acceptance Odds</div>
+            <p class="tier-caption">Enterprise rate for top brands with large budgets.</p>
           </div>
         </div>
 
@@ -497,198 +224,98 @@
 
       <!-- TAB 2: Gemma Counter-Pitch Drafter -->
       <div class="tab-content" id="tabPitch" style="display: none;">
-        <div class="pitch-controls">
-          <div>
-            <span class="presets-label">Negotiation Tone:</span>
-            <div class="tone-pills">
-              <button class="tone-pill active" data-tone="balanced">Collaborative</button>
-              <button class="tone-pill" data-tone="confident">Confident Partner</button>
-              <button class="tone-pill" data-tone="direct_premium">Direct & Premium</button>
-              <button class="tone-pill" data-tone="agency">Talent Agency</button>
+        <div class="pitch-toolbar">
+          <div class="tone-group">
+            <span class="toolbar-label">Tone:</span>
+            <div class="tone-buttons">
+              <button class="tone-btn active" data-tone="balanced">Collaborative</button>
+              <button class="tone-btn" data-tone="confident">Confident Partner</button>
+              <button class="tone-btn" data-tone="direct_premium">Direct & Premium</button>
+              <button class="tone-btn" data-tone="agency">Talent Agency</button>
             </div>
           </div>
-          <div class="pitch-action-btns">
-            <button class="btn-secondary" id="btnMailtoPitch">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <span>Open in Mail</span>
-            </button>
-            <button class="btn-secondary btn-copy" id="btnCopyPitch">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              <span>Copy Draft</span>
-            </button>
-          </div>
+          <button class="btn-copy" id="btnCopyPitch">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy Pitch</span>
+          </button>
         </div>
 
-        <!-- Email Client Mockup (Superhuman-Style) -->
-        <div class="email-client-card">
-          <div class="email-meta-bar">
-            <div class="email-meta-row">
-              <span class="email-meta-label">To:</span>
-              <span class="email-pill" id="pitchRecipient">partnerships@nordvpn.com</span>
-            </div>
-            <div class="email-meta-row">
-              <span class="email-meta-label">Subject:</span>
-              <input type="text" class="email-meta-input" id="pitchSubject" value="Partnership Proposal // DevPulse × NordVPN Rates & Dates">
-            </div>
+        <div class="email-box">
+          <div class="email-header-row">
+            <span class="email-lbl">Subject:</span>
+            <input type="text" class="email-subj-input" id="pitchSubject" value="Partnership Proposal // Video Integration Rates & Availability">
           </div>
-
-          <textarea class="pitch-editor" id="pitchBody" spellcheck="false"></textarea>
-
-          <div class="email-bottom-bar">
-            <div class="email-stats">
-              <span id="pitchWordCount">184 words</span> &bull; 
-              <span id="pitchReadTime">~45s read</span> &bull; 
-              <span style="color: var(--accent-emerald);">Anchoring Score: 9.6/10</span>
-            </div>
-            <div class="email-tools">
-              <button type="button" class="tool-btn" id="btnInsertRateCard">+ Insert Multi-Tier Table</button>
-              <button type="button" class="tool-btn" id="btnInsertCaseStudy">+ Attach Tech Demographic Comps</button>
-            </div>
-          </div>
+          <textarea class="pitch-textarea" id="pitchBody" spellcheck="false"></textarea>
         </div>
 
-        <!-- Gemma Anchoring Callout -->
-        <div class="anchor-callout">
-          <div class="anchor-header">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9H22L16 14L18 21L12 17L6 21L8 14L2 9H9L12 2Z"/></svg>
-            <span>Gemma 2 Strategic Psychological Anchoring Principles:</span>
-          </div>
-          <ul class="anchor-list" id="anchorsList">
+        <div class="anchor-box">
+          <span class="anchor-title">Gemma Strategic Anchoring:</span>
+          <ul class="anchor-items" id="anchorsList">
             <li>Anchors counter rate firmly around verifiable median view benchmarks ($1,490 FMV).</li>
             <li>Introduces multi-tiered package options so the brand evaluates which bundle to buy rather than rejecting.</li>
-            <li>Substantiates high CPM using developer audience purchase intent and high dev tool retention.</li>
+            <li>Substantiates valuation using developer audience purchase intent.</li>
           </ul>
         </div>
       </div>
 
-      <!-- TAB 3: Brand Intelligence (SerpApi Grounding) -->
+      <!-- TAB 3: Brand Intel (SerpApi Grounding) -->
       <div class="tab-content" id="tabIntel" style="display: none;">
-        <div class="intel-card">
-          <div class="intel-header">
-            <div class="intel-brand-title-group">
-              <div class="intel-brand-icon" id="intelBrandIcon">🛡</div>
-              <div>
-                <h4 id="intelBrandName">NordVPN Brand Dossier</h4>
-                <span id="intelBrandType">Cybersecurity & Consumer Privacy</span>
-              </div>
+        <div class="intel-box">
+          <div class="intel-head">
+            <div>
+              <h4 class="intel-brand" id="intelBrandName">Brand Intelligence Dossier</h4>
+              <span class="intel-type" id="intelBrandType">Sponsor Market Profile</span>
             </div>
-            <span class="badge pill-emerald" id="intelBudgetBadge">
-              Top-Tier Enterprise ($$$$)
-            </span>
+            <span class="tag-badge" id="intelBudgetBadge">Enterprise ($$$$)</span>
           </div>
 
-          <!-- Negotiation Leverage Weapon -->
-          <div class="intel-weapon-box">
-            <div class="weapon-header">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polygon points="12 8 8 12 12 16 12 8"/></svg>
-              <h5>High-Impact Negotiation Leverage Strategy</h5>
-            </div>
+          <div class="leverage-card">
+            <span class="leverage-title">🎯 Negotiation Leverage Weapon</span>
             <p id="intelLeverageTip">
-              Do not accept sub-$30 CPMs; NordVPN allocates substantial performance marketing spend and regularly pays $40+ CPM for tech audiences.
+              Do not accept lowball CPMs; established tech advertisers budget $40–$70 CPM for engaged developer audiences.
             </p>
           </div>
 
-          <!-- Market Intelligence Grid -->
-          <div class="intel-grid-2">
-            <div class="intel-subcard">
-              <h5 class="subcard-title">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                Market Intelligence Signals
-              </h5>
-              <ul id="intelSignalsList" class="intel-list">
-                <li>High recurring sponsorship budgets across YouTube and Podcasts.</li>
-                <li>Typically demands 30-day link exclusivity and pinned comment tracking.</li>
-                <li>Known to accept bundle deals if trackable coupon conversion is proven.</li>
-              </ul>
-            </div>
-
-            <div class="intel-subcard">
-              <h5 class="subcard-title">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                Competitor Counter-Leverage
-              </h5>
-              <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.5rem;">
-                If NordVPN resists $1,490, mention active sponsor interest in the cybersecurity category:
-              </p>
-              <div class="competitor-tags">
-                <span class="comp-tag">Surfshark VPN ($45–$65 CPM)</span>
-                <span class="comp-tag">ExpressVPN ($50–$70 CPM)</span>
-                <span class="comp-tag">1Password ($60–$85 CPM)</span>
-              </div>
-            </div>
+          <div>
+            <span class="signals-title">Market Signals & Sponsorship Patterns:</span>
+            <ul id="intelSignalsList" class="signals-list">
+              <li>High recurring sponsorship budgets across YouTube and Podcasts.</li>
+              <li>Typically requests 30-day category exclusivity and trackable discount links.</li>
+              <li>Receptive to multi-format bundle expansion packages.</li>
+            </ul>
           </div>
-
         </div>
       </div>
 
       <!-- TAB 4: DEV Submission Export -->
       <div class="tab-content" id="tabSubmission" style="display: none;">
-        <div class="submission-header">
+        <div class="submission-toolbar">
           <div>
-            <div class="submission-title-row">
-              <h4>Hacktoberfest Week 2 Submission Draft</h4>
-              <span class="badge badge-hf26">Side Hustle Challenge</span>
-            </div>
-            <p>Complete markdown ready to paste into DEV.to with official templates, partner categories, and architecture.</p>
+            <h4 class="subm-title">DEV Challenge Week 2 Submission Draft</h4>
+            <p class="subm-sub">Pre-formatted markdown for the Hacktoberfest Open-Source AI Challenge: Week 2</p>
           </div>
-          <div class="submission-actions">
-            <a href="https://dev.to/new" target="_blank" class="btn-secondary">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              <span>Open DEV Editor</span>
-            </a>
-            <button class="btn-primary btn-copy" id="btnCopySubmission">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              <span>Copy Markdown</span>
-            </button>
-          </div>
+          <button class="btn-copy" id="btnCopySubmission">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy Markdown</span>
+          </button>
         </div>
-
-        <div class="submission-editor-container">
-          <textarea class="pitch-editor submission-code" id="submissionDraft" spellcheck="false"></textarea>
-        </div>
+        <textarea class="submission-textarea" id="submissionDraft" spellcheck="false"></textarea>
       </div>
 
-    </div>
+    </section>
 
   </main>
 
-  <!-- Interactive Live Deal Simulator Floating Widget -->
-  <aside class="floating-deal-evaluator" id="dealEvaluatorPill">
-    <div class="evaluator-icon">💡</div>
-    <div class="evaluator-text">
-      <span class="eval-title">Simulated Deal Uplift</span>
-      <span class="eval-val" id="floatingUplift">+$1,040 (+231%) vs Offer</span>
-    </div>
-    <button type="button" class="evaluator-btn" id="btnQuickApplyEv">Apply Max EV</button>
-  </aside>
-
   <!-- Toast Notification -->
   <div class="toast" id="toastMessage">
-    <div class="toast-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-    </div>
-    <span id="toastText">Draft copied to clipboard!</span>
+    <span id="toastText">Copied to clipboard!</span>
   </div>
 
   <!-- Footer -->
   <footer>
-    <div class="footer-content">
-      <div class="footer-brand">
-        <div class="logo-icon small">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        </div>
-        <strong>SponsorScope AI</strong> &bull; Open-Source Creator Deal Intelligence
-      </div>
-      <p class="footer-meta">
-        Built for the <strong>Hacktoberfest Open-Source AI Challenge: Week 2 (Side Hustle)</strong>.
-      </p>
-      <div class="footer-badges">
-        <span class="footer-pill">Prior Labs TabPFN-3.5</span>
-        <span class="footer-pill">Google Gemma 2</span>
-        <span class="footer-pill">SerpApi Grounding</span>
-        <span class="footer-pill">Render Cloud</span>
-      </div>
-    </div>
+    <p>
+      <strong>SponsorScope AI</strong> &bull; Hacktoberfest 2026 Week 2 &bull; Powered by <strong>Prior Labs TabPFN-3.5</strong> &amp; <strong>Google Gemma 2</strong>.
+    </p>
   </footer>
 
   <script src="/js/app.js"></script>

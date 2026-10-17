@@ -1,6 +1,6 @@
 // ==========================================================================
-// SponsorScope AI — Client-Side Application Controller
-// High-performance reactive controller for TabPFN & Gemma 2 negotiation agent
+// SponsorScope AI — Clean Client Application Controller
+// Uncluttered, reactive forecaster & negotiation drafter
 // ==========================================================================
 
 let currentPrediction = null;
@@ -9,22 +9,15 @@ let currentPitch = null;
 let currentIntel = null;
 let currentTone = "balanced";
 let currentPrice = 1490;
-let presetsData = [];
-let activeBundles = new Set();
 
 document.addEventListener("DOMContentLoaded", () => {
-  initPresets();
   initTabs();
-  initQuickChips();
-  initTonePills();
+  initToneButtons();
   initSlider();
-  initQuickJumps();
   initTiers();
-  initSuperhumanEmailTools();
+  initCopyButtons();
   initCanvasInteraction();
-  initFloatingEvaluator();
-  initDEVSubmissionCopy();
-  initInboxClear();
+  initClearButton();
 
   window.addEventListener("resize", () => {
     if (currentPrediction) {
@@ -32,70 +25,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.getElementById("btnAnalyze").addEventListener("click", () => {
-    runFullAnalysis();
-  });
+  const btn = document.getElementById("btnAnalyze");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      runAnalysis();
+    });
+  }
+
+  // Pre-render initial clean baseline simulation
+  runInitialBaseline();
 });
 
-// 1. Initialize Presets
-async function initPresets() {
-  try {
-    const res = await fetch("/api/presets");
-    if (res.ok) {
-      presetsData = await res.json();
-      setupPresetButtons();
-    }
-  } catch (err) {
-    console.warn("Could not load remote presets:", err);
-  }
-}
-
-function setupPresetButtons() {
-  const nordBtn = document.getElementById("btnPresetNord");
-  const notionBtn = document.getElementById("btnPresetNotion");
-  const supabaseBtn = document.getElementById("btnPresetSupabase");
-  const datadogBtn = document.getElementById("btnPresetDatadog");
-
-  if (nordBtn && presetsData[0]) nordBtn.addEventListener("click", () => applyPreset(presetsData[0], nordBtn));
-  if (notionBtn && presetsData[1]) notionBtn.addEventListener("click", () => applyPreset(presetsData[1], notionBtn));
-  if (supabaseBtn && presetsData[2]) supabaseBtn.addEventListener("click", () => applyPreset(presetsData[2], supabaseBtn));
-  if (datadogBtn && presetsData[3]) datadogBtn.addEventListener("click", () => applyPreset(presetsData[3], datadogBtn));
-
-  // Auto load first preset on startup
-  if (presetsData.length > 0) {
-    applyPreset(presetsData[0], nordBtn);
-  }
-}
-
-function applyPreset(preset, activeBtn) {
-  if (!preset) return;
-
-  document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
-  if (activeBtn) activeBtn.classList.add("active");
-
-  const cp = preset.creator_profile;
-  document.getElementById("creatorName").value = `${cp.creator_name} (@${(cp.channel_name || "creator").toLowerCase().replace(/\s+/g, '')})`;
-  document.getElementById("platformSelect").value = cp.platform;
-  document.getElementById("nicheSelect").value = cp.niche;
-  document.getElementById("followerCount").value = cp.followers;
-  document.getElementById("medianViews").value = cp.median_views;
-  document.getElementById("engagementRate").value = cp.engagement_rate;
-  document.getElementById("emailInput").value = preset.email;
-
-  // Update brand badge in email header
-  const tagEl = document.getElementById("inboundBrandTag");
-  if (tagEl) {
-    const bName = preset.title.split("—")[0].trim();
-    tagEl.textContent = bName;
-  }
-
-  // Clear any existing active bundles for fresh run
-  activeBundles.clear();
-
-  runFullAnalysis();
-}
-
-// 2. Navigation Tabs
+// 1. Navigation Tabs
 function initTabs() {
   const tabBtns = document.querySelectorAll(".tab-btn");
   tabBtns.forEach(btn => {
@@ -109,38 +50,20 @@ function initTabs() {
       if (targetEl) targetEl.style.display = "block";
 
       if (targetTab === "tabValuation" && currentPrediction) {
-        setTimeout(() => drawProbabilityCurve(currentPrice), 60);
+        setTimeout(() => drawProbabilityCurve(currentPrice), 50);
       }
     });
   });
 }
 
-// 3. Quick Chips for Followers
-function initQuickChips() {
-  const chips = document.querySelectorAll(".quick-chip");
-  chips.forEach(chip => {
-    chip.addEventListener("click", () => {
-      chips.forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-
-      const val = parseInt(chip.getAttribute("data-val"));
-      document.getElementById("followerCount").value = val;
-
-      // Estimate median views (~40% of subs)
-      const estViews = Math.round(val * 0.42);
-      document.getElementById("medianViews").value = estViews;
-    });
-  });
-}
-
-// 4. Tone Selector
-function initTonePills() {
-  const pills = document.querySelectorAll(".tone-pill");
-  pills.forEach(pill => {
-    pill.addEventListener("click", () => {
-      pills.forEach(p => p.classList.remove("active"));
-      pill.classList.add("active");
-      currentTone = pill.getAttribute("data-tone");
+// 2. Tone Buttons
+function initToneButtons() {
+  const btns = document.querySelectorAll(".tone-btn");
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      btns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentTone = btn.getAttribute("data-tone");
       if (currentDeal && currentPrediction) {
         regeneratePitch();
       }
@@ -148,9 +71,23 @@ function initTonePills() {
   });
 }
 
-// 5. Interactive Price Slider
+// 3. Clear Email Button
+function initClearButton() {
+  const btn = document.getElementById("btnClearEmail");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      const input = document.getElementById("emailInput");
+      input.value = "";
+      input.focus();
+    });
+  }
+}
+
+// 4. Interactive Price Slider
 function initSlider() {
   const slider = document.getElementById("priceSlider");
+  if (!slider) return;
+
   slider.addEventListener("input", (e) => {
     const price = parseInt(e.target.value);
     currentPrice = price;
@@ -159,7 +96,8 @@ function initSlider() {
 }
 
 function updateSliderUI(price) {
-  document.getElementById("sliderVal").textContent = `$${price.toLocaleString()}`;
+  const sliderValEl = document.getElementById("sliderVal");
+  if (sliderValEl) sliderValEl.textContent = `$${price.toLocaleString()}`;
 
   if (currentPrediction && currentPrediction.fair_market_value) {
     const fmv = currentPrediction.fair_market_value;
@@ -168,80 +106,25 @@ function updateSliderUI(price) {
     const prob = Math.min(98, Math.max(4, Math.round(100.0 / (1.0 + Math.exp(-z)) * 10) / 10));
     const ev = Math.round(price * (prob / 100.0));
 
-    document.getElementById("sliderProb").textContent = `${prob}%`;
-    document.getElementById("sliderEv").textContent = `$${ev.toLocaleString()}`;
-
-    // Update floating evaluator
-    updateFloatingEvaluator(price, prob);
+    const probEl = document.getElementById("sliderProb");
+    const evEl = document.getElementById("sliderEv");
+    if (probEl) probEl.textContent = `${prob}%`;
+    if (evEl) evEl.textContent = `$${ev.toLocaleString()}`;
 
     drawProbabilityCurve(price);
   }
 }
 
-// 6. Quick Jump Buttons on Probability Graph
-function initQuickJumps() {
-  const btnSafe = document.getElementById("btnJumpSafe");
-  const btnEv = document.getElementById("btnJumpEv");
-  const btnAgg = document.getElementById("btnJumpAgg");
-
-  const setActiveJump = (activeBtn) => {
-    document.querySelectorAll(".quick-jump-btn").forEach(b => b.classList.remove("active"));
-    if (activeBtn) activeBtn.classList.add("active");
-  };
-
-  if (btnSafe) {
-    btnSafe.addEventListener("click", () => {
-      setActiveJump(btnSafe);
-      if (currentPrediction) {
-        const rate = currentPrediction.tiers.conservative.rate;
-        applyPrice(rate);
-        showToast(`Applied Safe Rate: $${rate.toLocaleString()}`);
-      }
-    });
-  }
-
-  if (btnEv) {
-    btnEv.addEventListener("click", () => {
-      setActiveJump(btnEv);
-      if (currentPrediction) {
-        const rate = currentPrediction.tiers.balanced.rate;
-        applyPrice(rate);
-        showToast(`Applied Optimal $EV Rate: $${rate.toLocaleString()}`);
-      }
-    });
-  }
-
-  if (btnAgg) {
-    btnAgg.addEventListener("click", () => {
-      setActiveJump(btnAgg);
-      if (currentPrediction) {
-        const rate = currentPrediction.tiers.aggressive.rate;
-        applyPrice(rate);
-        showToast(`Applied Aggressive Rate: $${rate.toLocaleString()}`);
-      }
-    });
-  }
-}
-
-function applyPrice(price) {
-  const slider = document.getElementById("priceSlider");
-  slider.value = price;
-  currentPrice = price;
-  updateSliderUI(price);
-}
-
-// 7. Canvas Mouse Hover, Scrub & Click Interaction
+// 5. Canvas Mouse Interaction
 function initCanvasInteraction() {
   const canvas = document.getElementById("probCanvas");
   if (!canvas) return;
 
-  let isDragging = false;
-
-  const handlePointer = (e) => {
+  canvas.addEventListener("mousemove", (e) => {
     if (!currentPrediction) return;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const padding = { top: 30, right: 40, bottom: 40, left: 50 };
+    const padding = { top: 25, right: 35, bottom: 35, left: 45 };
     const graphWidth = rect.width - padding.left - padding.right;
 
     const curveData = currentPrediction.probability_curve;
@@ -253,37 +136,18 @@ function initCanvasInteraction() {
     const clampedX = Math.max(0, Math.min(graphWidth, x - padding.left));
     const targetPrice = Math.round(minPrice + (clampedX / graphWidth) * (maxPrice - minPrice));
 
-    if (isDragging) {
-      applyPrice(targetPrice);
-    } else {
-      drawProbabilityCurve(targetPrice);
-    }
-  };
-
-  canvas.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    handlePointer(e);
-  });
-
-  window.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
-
-  canvas.addEventListener("mousemove", (e) => {
-    handlePointer(e);
+    drawProbabilityCurve(targetPrice);
   });
 
   canvas.addEventListener("mouseleave", () => {
-    if (!isDragging) {
-      drawProbabilityCurve(currentPrice);
-    }
+    drawProbabilityCurve(currentPrice);
   });
 
   canvas.addEventListener("click", (e) => {
     if (!currentPrediction) return;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const padding = { top: 30, right: 40, bottom: 40, left: 50 };
+    const padding = { top: 25, right: 35, bottom: 35, left: 45 };
     const graphWidth = rect.width - padding.left - padding.right;
 
     const curveData = currentPrediction.probability_curve;
@@ -295,148 +159,53 @@ function initCanvasInteraction() {
     const clampedX = Math.max(0, Math.min(graphWidth, x - padding.left));
     const selectedPrice = Math.round(minPrice + (clampedX / graphWidth) * (maxPrice - minPrice));
 
-    applyPrice(selectedPrice);
+    const slider = document.getElementById("priceSlider");
+    if (slider) {
+      slider.value = selectedPrice;
+      slider.dispatchEvent(new Event("input"));
+    }
   });
 }
 
-// 8. Strategy Tiers
+// 6. Strategy Tiers
 function initTiers() {
-  const tierBoxes = document.querySelectorAll(".tier-box");
-  tierBoxes.forEach(box => {
-    box.addEventListener("click", () => {
-      tierBoxes.forEach(b => b.classList.remove("selected"));
-      box.classList.add("selected");
+  const cards = document.querySelectorAll(".tier-card");
+  cards.forEach(card => {
+    card.addEventListener("click", () => {
+      cards.forEach(c => c.classList.remove("active"));
+      card.classList.add("active");
 
-      const tierKey = box.getAttribute("data-tier");
+      const tierKey = card.getAttribute("data-tier");
       if (currentPrediction && currentPrediction.tiers[tierKey]) {
         const rate = currentPrediction.tiers[tierKey].rate;
-        applyPrice(rate);
-        showToast(`Applied ${tierKey.toUpperCase()} tier: $${rate.toLocaleString()}`);
+        const slider = document.getElementById("priceSlider");
+        if (slider) {
+          slider.value = rate;
+          slider.dispatchEvent(new Event("input"));
+        }
       }
     });
   });
 }
 
-// 9. Superhuman Email Tools & Copy
-function initSuperhumanEmailTools() {
-  const btnCopy = document.getElementById("btnCopyPitch");
-  if (btnCopy) {
-    btnCopy.addEventListener("click", () => {
+// 7. Copy Buttons
+function initCopyButtons() {
+  const btnCopyPitch = document.getElementById("btnCopyPitch");
+  if (btnCopyPitch) {
+    btnCopyPitch.addEventListener("click", () => {
       const text = document.getElementById("pitchBody").value;
       navigator.clipboard.writeText(text).then(() => {
-        showToast("Gemma Counter-Pitch copied to clipboard!");
+        showToast("Counter-pitch copied to clipboard!");
       });
     });
   }
 
-  const btnMailto = document.getElementById("btnMailtoPitch");
-  if (btnMailto) {
-    btnMailto.addEventListener("click", () => {
-      const subject = encodeURIComponent(document.getElementById("pitchSubject").value);
-      const body = encodeURIComponent(document.getElementById("pitchBody").value);
-      const recipient = document.getElementById("pitchRecipient").textContent.trim();
-      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
-    });
-  }
-
-  const btnInsertRateCard = document.getElementById("btnInsertRateCard");
-  if (btnInsertRateCard) {
-    btnInsertRateCard.addEventListener("click", () => {
-      if (!currentPrediction) return;
-      const editor = document.getElementById("pitchBody");
-      const fmv = currentPrediction.fair_market_value;
-      const p = currentPrediction;
-      const tableText = `\n\n--- Standard Rate Card & Tier Options ---\n` +
-        `• Option A (Standard Integration): $${p.tiers.conservative.rate.toLocaleString()} (60s mid-roll + permanent link)\n` +
-        `• Option B (Optimal Strategic Package): $${p.tiers.balanced.rate.toLocaleString()} (60s mid-roll + pinned comment + 30-day category exclusivity)\n` +
-        `• Option C (Enterprise Omnichannel Flight): $${p.tiers.aggressive.rate.toLocaleString()} (Dedicated segment + newsletter sponsorship + paid whitelisting)\n---`;
-      editor.value += tableText;
-      updatePitchMetrics();
-      showToast("Multi-tier rate card inserted into draft!");
-    });
-  }
-
-  const btnInsertCaseStudy = document.getElementById("btnInsertCaseStudy");
-  if (btnInsertCaseStudy) {
-    btnInsertCaseStudy.addEventListener("click", () => {
-      const editor = document.getElementById("pitchBody");
-      const views = document.getElementById("medianViews").value;
-      const eng = document.getElementById("engagementRate").value;
-      const comps = `\n\nAudience Purchase Intent Data:\n• 30-day median verified views: ${parseInt(views).toLocaleString()}\n• Audience engagement index: ${eng}% (78% software engineers, DevOps, and tech leads)\n• Past developer tool partner campaigns average a 4.2% click-through rate with strong signup conversion.`;
-      editor.value += comps;
-      updatePitchMetrics();
-      showToast("Audience demographic metrics inserted!");
-    });
-  }
-
-  const pitchBody = document.getElementById("pitchBody");
-  if (pitchBody) {
-    pitchBody.addEventListener("input", () => {
-      updatePitchMetrics();
-    });
-  }
-}
-
-function updatePitchMetrics() {
-  const text = document.getElementById("pitchBody").value;
-  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-  const readSeconds = Math.max(10, Math.round((words / 220) * 60));
-
-  const countEl = document.getElementById("pitchWordCount");
-  const readEl = document.getElementById("pitchReadTime");
-  if (countEl) countEl.textContent = `${words} words`;
-  if (readEl) readEl.textContent = `~${readSeconds}s read`;
-}
-
-// 10. Inbox Clear Button
-function initInboxClear() {
-  const btn = document.getElementById("btnClearEmail");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      const ta = document.getElementById("emailInput");
-      ta.value = "";
-      ta.focus();
-      showToast("Inbound email cleared");
-    });
-  }
-}
-
-// 11. Floating Deal Evaluator Widget
-function initFloatingEvaluator() {
-  const btn = document.getElementById("btnQuickApplyEv");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      if (currentPrediction) {
-        const evRate = currentPrediction.tiers.balanced.rate;
-        applyPrice(evRate);
-        showToast(`Optimal $EV Rate ($${evRate.toLocaleString()}) Applied!`);
-      }
-    });
-  }
-}
-
-function updateFloatingEvaluator(price, prob) {
-  const el = document.getElementById("floatingUplift");
-  if (!el || !currentDeal) return;
-
-  const offered = currentDeal.offered_amount || 0;
-  if (offered > 0) {
-    const uplift = price - offered;
-    const pct = Math.round((uplift / offered) * 100);
-    el.textContent = `+$${uplift.toLocaleString()} (+${pct}%) vs Offer`;
-  } else {
-    el.textContent = `$${price.toLocaleString()} (${prob}% Odds)`;
-  }
-}
-
-// 12. Copy DEV Submission Markdown
-function initDEVSubmissionCopy() {
-  const btn = document.getElementById("btnCopySubmission");
-  if (btn) {
-    btn.addEventListener("click", () => {
+  const btnCopySubm = document.getElementById("btnCopySubmission");
+  if (btnCopySubm) {
+    btnCopySubm.addEventListener("click", () => {
       const text = document.getElementById("submissionDraft").value;
       navigator.clipboard.writeText(text).then(() => {
-        showToast("DEV Challenge submission markdown copied!");
+        showToast("DEV submission markdown copied!");
       });
     });
   }
@@ -448,30 +217,31 @@ function showToast(msg) {
   if (!toast || !text) return;
   text.textContent = msg;
   toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 2800);
+  setTimeout(() => toast.classList.remove("show"), 2400);
 }
 
-// 13. Full Analysis Pipeline (With Pipeline Progress Visualizer)
-async function runFullAnalysis() {
+// 8. Initial Baseline Simulation (Clean default on page load)
+function runInitialBaseline() {
+  const defaultEmail = "Hi Alex,\n\nWe came across your channel and would love to sponsor a 60-second integration in an upcoming video. Our standard allocation for this integration is $450 flat with 30-day category exclusivity.\n\nLet us know if this works for you!\n\nBest,\nSponsor Partnerships";
+  const emailInput = document.getElementById("emailInput");
+  if (emailInput && !emailInput.value) {
+    emailInput.value = defaultEmail;
+  }
+  runAnalysis();
+}
+
+// 9. Run Deal Analysis
+async function runAnalysis() {
   const btn = document.getElementById("btnAnalyze");
   const btnText = document.getElementById("btnAnalyzeText");
-  const progress = document.getElementById("pipelineProgress");
-  const stepGemma = document.getElementById("stepGemma");
-  const stepTabpfn = document.getElementById("stepTabpfn");
-  const stepPitch = document.getElementById("stepPitch");
 
-  if (progress) progress.style.display = "flex";
-  if (btnText) btnText.textContent = "Extracting with Gemma 2...";
-  if (stepGemma) stepGemma.className = "pipeline-step active";
-  if (stepTabpfn) stepTabpfn.className = "pipeline-step";
-  if (stepPitch) stepPitch.className = "pipeline-step";
+  if (btnText) btnText.textContent = "Analyzing with TabPFN & Gemma...";
+  if (btn) btn.style.opacity = "0.75";
 
-  btn.style.opacity = "0.75";
-
-  const emailText = document.getElementById("emailInput").value;
+  const emailText = document.getElementById("emailInput").value.trim();
   const creatorProfile = {
-    creator_name: document.getElementById("creatorName").value,
-    channel_name: document.getElementById("creatorName").value,
+    creator_name: document.getElementById("creatorName").value.trim() || "Creator",
+    channel_name: document.getElementById("creatorName").value.trim() || "Channel",
     platform: document.getElementById("platformSelect").value,
     niche: document.getElementById("nicheSelect").value,
     followers: parseFloat(document.getElementById("followerCount").value) || 50000,
@@ -480,7 +250,7 @@ async function runFullAnalysis() {
   };
 
   try {
-    // Step 1: Extract Inbound Deal specs via Gemma
+    // 1. Extract Deal Details
     const extractRes = await fetch("/api/extract-deal", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -488,11 +258,7 @@ async function runFullAnalysis() {
     });
     currentDeal = await extractRes.json();
 
-    // Advance pipeline progress
-    if (btnText) btnText.textContent = "Bayesian Forecaster (TabPFN-3.5)...";
-    if (stepTabpfn) stepTabpfn.className = "pipeline-step active";
-
-    // Step 2: Run TabPFN Predictive Forecaster
+    // 2. Predict Rates with TabPFN
     const predictRes = await fetch("/api/predict-rates", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -503,46 +269,40 @@ async function runFullAnalysis() {
     });
     currentPrediction = await predictRes.json();
 
-    // Advance pipeline progress
-    if (btnText) btnText.textContent = "Synthesizing Counter-Pitch...";
-    if (stepPitch) stepPitch.className = "pipeline-step active";
-
-    // Step 3: Fetch Brand Intel via SerpApi
+    // 3. Fetch Brand Intel
     const intelRes = await fetch("/api/brand-intel", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ brand_name: currentDeal.brand_name })
+      body: JSON.stringify({ brand_name: currentDeal.brand_name || "Sponsor" })
     });
     currentIntel = await intelRes.json();
 
-    // Step 4: Render All Results
-    renderValuationTab(creatorProfile);
+    // 4. Render All Views
+    renderValuation();
     await regeneratePitch(creatorProfile);
-    renderIntelTab();
-    renderSubmissionTab(creatorProfile);
+    renderIntel();
+    renderSubmission(creatorProfile);
 
   } catch (err) {
     console.error("Analysis pipeline error:", err);
-    showToast("Error executing analysis pipeline.");
+    showToast("Error processing deal analysis.");
   } finally {
-    if (btnText) btnText.textContent = "Run TabPFN & Gemma Analysis";
-    btn.style.opacity = "1";
-    setTimeout(() => {
-      if (progress) progress.style.display = "none";
-    }, 1200);
+    if (btnText) btnText.textContent = "Analyze Deal with AI";
+    if (btn) btn.style.opacity = "1";
   }
 }
 
-// 14. Render Valuation & Canvas Curve
-function renderValuationTab(creatorProfile) {
+// 10. Render Valuation
+function renderValuation() {
   const p = currentPrediction;
   if (!p) return;
 
   const fmv = p.fair_market_value;
-  const offered = p.offered_amount;
+  const offered = p.offered_amount || 0;
   const balanced = p.tiers.balanced.rate;
   currentPrice = balanced;
 
+  // KPI Metrics
   document.getElementById("metricOffer").textContent = offered > 0 ? `$${offered.toLocaleString()}` : "Not Disclosed";
   document.getElementById("metricDeliverable").textContent = currentDeal.requested_deliverables || "Standard Integration";
   document.getElementById("metricFmv").textContent = `$${fmv.toLocaleString()}`;
@@ -550,122 +310,41 @@ function renderValuationTab(creatorProfile) {
   document.getElementById("metricCounter").textContent = `$${balanced.toLocaleString()}`;
   document.getElementById("metricWinProb").textContent = `${p.tiers.balanced.win_probability}%`;
 
-  if (offered > 0) {
-    const gain = balanced - offered;
-    const gainPct = Math.round((gain / offered) * 100);
-    const gainEl = document.getElementById("metricGain");
-    if (gainEl) gainEl.textContent = `+$${gain.toLocaleString()} (+${gainPct}%) Upside`;
-  }
-
   // Lowball Alert
   const banner = document.getElementById("lowballBanner");
+  const bannerText = document.getElementById("lowballText");
   if (offered > 0 && fmv > offered) {
     const diff = fmv - offered;
     const pct = Math.round((diff / fmv) * 100);
     banner.style.display = "flex";
-    banner.innerHTML = `
-      <div class="lowball-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      </div>
-      <div class="lowball-text">
-        <strong>Severe Underpricing Detected:</strong> The brand offered <strong>$${offered.toLocaleString()}</strong>, leaving <strong style="color: #f43f5e;">$${diff.toLocaleString()} (${pct}%)</strong> on the table compared to TabPFN fair market valuation.
-      </div>
-    `;
+    bannerText.innerHTML = `Underpricing Detected: Brand offered <strong>$${offered.toLocaleString()}</strong>, leaving <strong style="color: #f43f5e;">$${diff.toLocaleString()} (${pct}%)</strong> on the table compared to TabPFN fair market valuation.`;
   } else {
     banner.style.display = "none";
   }
 
-  // Strategy Tiers
+  // Tiers
   document.getElementById("tierPriceCons").textContent = `$${p.tiers.conservative.rate.toLocaleString()}`;
+  document.getElementById("tierProbCons").textContent = `${p.tiers.conservative.win_probability}% Acceptance Odds`;
+
   document.getElementById("tierPriceBal").textContent = `$${p.tiers.balanced.rate.toLocaleString()}`;
+  document.getElementById("tierProbBal").textContent = `${p.tiers.balanced.win_probability}% Acceptance Odds`;
+
   document.getElementById("tierPriceAgg").textContent = `$${p.tiers.aggressive.rate.toLocaleString()}`;
+  document.getElementById("tierProbAgg").textContent = `${p.tiers.aggressive.win_probability}% Acceptance Odds`;
 
   // Slider bounds
   const slider = document.getElementById("priceSlider");
-  const minVal = Math.round(fmv * 0.4);
-  const maxVal = Math.round(fmv * 1.85);
-  slider.min = minVal;
-  slider.max = maxVal;
-  slider.value = balanced;
-  updateSliderUI(balanced);
-
-  // Render Smart Upsell Bundles with Live Checkboxes
-  renderBundlesList(p.bundles || []);
+  if (slider) {
+    slider.min = Math.round(fmv * 0.4);
+    slider.max = Math.round(fmv * 1.85);
+    slider.value = balanced;
+    updateSliderUI(balanced);
+  }
 
   drawProbabilityCurve(balanced);
 }
 
-// 15. Render Bundles with Interactive Checkbox Toggles
-function renderBundlesList(bundles) {
-  const bundlesList = document.getElementById("bundlesList");
-  if (!bundlesList) return;
-  bundlesList.innerHTML = "";
-
-  bundles.forEach((b, idx) => {
-    const card = document.createElement("div");
-    card.className = "bundle-card";
-    card.id = `bundleCard_${idx}`;
-
-    const tagsHtml = b.components.map(comp => `<span class="bundle-component-tag">${comp}</span>`).join("");
-    
-    card.innerHTML = `
-      <div class="bundle-checkbox-group">
-        <input type="checkbox" class="bundle-check-input" id="bundleCheck_${idx}" data-idx="${idx}" data-price="${b.total_bundle_price}" data-name="${b.bundle_name}">
-        <div class="bundle-info">
-          <h5>
-            <span>${b.bundle_name}</span>
-            <span class="badge badge-emerald" style="font-size: 0.65rem;">
-              ${b.acceptance_odds}
-            </span>
-          </h5>
-          <div class="bundle-components">${tagsHtml}</div>
-          <p style="font-size: 0.76rem; color: var(--text-muted); line-height: 1.4;">${b.reasoning}</p>
-        </div>
-      </div>
-      <div class="bundle-action">
-        <div class="bundle-price">$${b.total_bundle_price.toLocaleString()}</div>
-        <div class="bundle-upsell-tag">+${b.add_on_price.toLocaleString()} Expansion</div>
-      </div>
-    `;
-
-    bundlesList.appendChild(card);
-
-    // Wire up toggle listener
-    const checkbox = card.querySelector(".bundle-check-input");
-    checkbox.addEventListener("change", (e) => {
-      const isChecked = e.target.checked;
-      card.classList.toggle("included", isChecked);
-
-      if (isChecked) {
-        activeBundles.add(b.bundle_name);
-        applyPrice(b.total_bundle_price);
-        showToast(`Added ${b.bundle_name} (Total: $${b.total_bundle_price.toLocaleString()})`);
-      } else {
-        activeBundles.delete(b.bundle_name);
-        const defaultRate = currentPrediction.tiers.balanced.rate;
-        applyPrice(defaultRate);
-        showToast(`Reverted to default tier rate ($${defaultRate.toLocaleString()})`);
-      }
-
-      // Dynamically reflect bundle in pitch
-      updatePitchWithBundles();
-    });
-  });
-}
-
-function updatePitchWithBundles() {
-  if (!currentPitch) return;
-  const editor = document.getElementById("pitchBody");
-  if (activeBundles.size > 0) {
-    const bundleNames = Array.from(activeBundles).join(" + ");
-    editor.value = currentPitch.body + `\n\nExpansion Bundle Included:\nI have packaged this with ${bundleNames} for maximum campaign impact.`;
-  } else {
-    editor.value = currentPitch.body;
-  }
-  updatePitchMetrics();
-}
-
-// 16. Draw High-Aesthetic Canvas Deal Probability Curve with Spline Smoothing
+// 11. Draw Clean Canvas Deal Probability Curve
 function drawProbabilityCurve(highlightPrice) {
   const canvas = document.getElementById("probCanvas");
   if (!canvas) return;
@@ -686,129 +365,77 @@ function drawProbabilityCurve(highlightPrice) {
   const curveData = currentPrediction ? currentPrediction.probability_curve : [];
   if (!curveData || curveData.length < 2) return;
 
-  const padding = { top: 30, right: 40, bottom: 40, left: 50 };
+  const padding = { top: 25, right: 35, bottom: 35, left: 45 };
   const graphWidth = width - padding.left - padding.right;
   const graphHeight = height - padding.top - padding.bottom;
 
   const minPrice = curveData[0].price;
   const maxPrice = curveData[curveData.length - 1].price;
 
-  // Draw 3 Colored Strategic Zones in Background
-  const safeThresholdX = padding.left + graphWidth * 0.4;
-  const riskThresholdX = padding.left + graphWidth * 0.75;
-
-  // Safe Zone (Greenish subtle gradient)
-  const safeGrad = ctx.createLinearGradient(padding.left, 0, safeThresholdX, 0);
-  safeGrad.addColorStop(0, "rgba(16, 185, 129, 0.08)");
-  safeGrad.addColorStop(1, "rgba(16, 185, 129, 0.02)");
-  ctx.fillStyle = safeGrad;
-  ctx.fillRect(padding.left, padding.top, safeThresholdX - padding.left, graphHeight);
-
-  // Sweet Spot Zone (Cyan subtle gradient)
-  const sweetGrad = ctx.createLinearGradient(safeThresholdX, 0, riskThresholdX, 0);
-  sweetGrad.addColorStop(0, "rgba(0, 242, 254, 0.05)");
-  sweetGrad.addColorStop(1, "rgba(0, 242, 254, 0.02)");
-  ctx.fillStyle = sweetGrad;
-  ctx.fillRect(safeThresholdX, padding.top, riskThresholdX - safeThresholdX, graphHeight);
-
-  // Risk Zone (Rose subtle gradient)
-  const riskGrad = ctx.createLinearGradient(riskThresholdX, 0, width - padding.right, 0);
-  riskGrad.addColorStop(0, "rgba(244, 63, 94, 0.03)");
-  riskGrad.addColorStop(1, "rgba(244, 63, 94, 0.08)");
-  ctx.fillStyle = riskGrad;
-  ctx.fillRect(riskThresholdX, padding.top, width - padding.right - riskThresholdX, graphHeight);
-
-  // Dotted Grid Lines
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.06)";
+  // Grid Lines
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
   ctx.lineWidth = 1;
   ctx.setLineDash([3, 4]);
 
-  for (let prob = 20; prob <= 100; prob += 20) {
+  for (let prob = 25; prob <= 100; prob += 25) {
     const y = padding.top + graphHeight - (prob / 100) * graphHeight;
     ctx.beginPath();
     ctx.moveTo(padding.left, y);
     ctx.lineTo(width - padding.right, y);
     ctx.stroke();
 
-    ctx.fillStyle = "rgba(148, 163, 184, 0.6)";
+    ctx.fillStyle = "rgba(148, 163, 184, 0.55)";
     ctx.font = "10px JetBrains Mono";
     ctx.textAlign = "right";
-    ctx.fillText(`${prob}%`, padding.left - 10, y + 3);
+    ctx.fillText(`${prob}%`, padding.left - 8, y + 3);
   }
   ctx.setLineDash([]);
 
-  // Calculate Points
-  const points = curveData.map(pt => ({
-    x: padding.left + ((pt.price - minPrice) / (maxPrice - minPrice)) * graphWidth,
-    y: padding.top + graphHeight - (pt.probability / 100) * graphHeight
-  }));
-
-  // Smooth Area Gradient under the curve
+  // Area Fill
   const areaGrad = ctx.createLinearGradient(0, padding.top, 0, height - padding.bottom);
-  areaGrad.addColorStop(0, "rgba(0, 242, 254, 0.35)");
-  areaGrad.addColorStop(0.5, "rgba(79, 172, 254, 0.12)");
+  areaGrad.addColorStop(0, "rgba(0, 242, 254, 0.2)");
   areaGrad.addColorStop(1, "rgba(0, 242, 254, 0.0)");
 
   ctx.beginPath();
-  ctx.moveTo(points[0].x, height - padding.bottom);
-  ctx.lineTo(points[0].x, points[0].y);
-
-  // Smooth Catmull-Rom or cubic spline segments
-  for (let i = 0; i < points.length - 1; i++) {
-    const p0 = points[i === 0 ? i : i - 1];
-    const p1 = points[i];
-    const p2 = points[i + 1];
-    const p3 = points[i + 2 < points.length ? i + 2 : i + 1];
-
-    const cp1x = p1.x + (p2.x - p0.x) / 6;
-    const cp1y = p1.y + (p2.y - p0.y) / 6;
-    const cp2x = p2.x - (p3.x - p1.x) / 6;
-    const cp2y = p2.y - (p3.y - p1.y) / 6;
-
-    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
-  }
-  ctx.lineTo(points[points.length - 1].x, height - padding.bottom);
+  curveData.forEach((pt, idx) => {
+    const x = padding.left + ((pt.price - minPrice) / (maxPrice - minPrice)) * graphWidth;
+    const y = padding.top + graphHeight - (pt.probability / 100) * graphHeight;
+    if (idx === 0) {
+      ctx.moveTo(x, height - padding.bottom);
+      ctx.lineTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
+    }
+  });
+  ctx.lineTo(padding.left + graphWidth, height - padding.bottom);
   ctx.closePath();
   ctx.fillStyle = areaGrad;
   ctx.fill();
 
-  // Glow Stroke Underneath
+  // Curve Line
   ctx.beginPath();
-  ctx.moveTo(points[0].x, points[0].y);
-  for (let i = 0; i < points.length - 1; i++) {
-    const p0 = points[i === 0 ? i : i - 1];
-    const p1 = points[i];
-    const p2 = points[i + 1];
-    const p3 = points[i + 2 < points.length ? i + 2 : i + 1];
-
-    const cp1x = p1.x + (p2.x - p0.x) / 6;
-    const cp1y = p1.y + (p2.y - p0.y) / 6;
-    const cp2x = p2.x - (p3.x - p1.x) / 6;
-    const cp2y = p2.y - (p3.y - p1.y) / 6;
-
-    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
-  }
-  ctx.strokeStyle = "rgba(0, 242, 254, 0.4)";
-  ctx.lineWidth = 6;
-  ctx.stroke();
-
-  // Crisp Curve Line on Top
+  curveData.forEach((pt, idx) => {
+    const x = padding.left + ((pt.price - minPrice) / (maxPrice - minPrice)) * graphWidth;
+    const y = padding.top + graphHeight - (pt.probability / 100) * graphHeight;
+    if (idx === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
   ctx.strokeStyle = "#00f2fe";
   ctx.lineWidth = 2.5;
   ctx.stroke();
 
-  // Draw Price Ticks on Bottom Axis
-  ctx.fillStyle = "rgba(148, 163, 184, 0.75)";
-  ctx.font = "11px JetBrains Mono";
+  // Bottom Axis Dollar Markers
+  ctx.fillStyle = "rgba(148, 163, 184, 0.65)";
+  ctx.font = "10px JetBrains Mono";
   ctx.textAlign = "center";
-  const tickSteps = 5;
-  for (let i = 0; i <= tickSteps; i++) {
-    const p = Math.round(minPrice + (i / tickSteps) * (maxPrice - minPrice));
-    const x = padding.left + (i / tickSteps) * graphWidth;
-    ctx.fillText(`$${p.toLocaleString()}`, x, height - padding.bottom + 22);
+  const tickCount = 4;
+  for (let i = 0; i <= tickCount; i++) {
+    const p = Math.round(minPrice + (i / tickCount) * (maxPrice - minPrice));
+    const x = padding.left + (i / tickCount) * graphWidth;
+    ctx.fillText(`$${p.toLocaleString()}`, x, height - padding.bottom + 18);
   }
 
-  // Highlight Crosshair Point
+  // Crosshair Point
   if (highlightPrice) {
     const clampedPrice = Math.max(minPrice, Math.min(maxPrice, highlightPrice));
     const hlX = padding.left + ((clampedPrice - minPrice) / (maxPrice - minPrice)) * graphWidth;
@@ -820,62 +447,55 @@ function drawProbabilityCurve(highlightPrice) {
     const hlY = padding.top + graphHeight - (hlProb / 100) * graphHeight;
     const ev = Math.round(clampedPrice * (hlProb / 100.0));
 
-    // Vertical indicator line
-    ctx.setLineDash([4, 4]);
-    ctx.strokeStyle = "rgba(0, 242, 254, 0.6)";
-    ctx.lineWidth = 1.5;
+    // Vertical dashed crosshair line
+    ctx.setLineDash([3, 3]);
+    ctx.strokeStyle = "rgba(0, 242, 254, 0.4)";
+    ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(hlX, padding.top);
     ctx.lineTo(hlX, height - padding.bottom);
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Outer Pulsing Glow Circle
+    // Point
     ctx.beginPath();
-    ctx.arc(hlX, hlY, 11, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(0, 242, 254, 0.25)";
+    ctx.arc(hlX, hlY, 5, 0, Math.PI * 2);
+    ctx.fillStyle = "#00f2fe";
     ctx.fill();
-
-    // Center Circle
-    ctx.beginPath();
-    ctx.arc(hlX, hlY, 6, 0, Math.PI * 2);
-    ctx.fillStyle = hlProb > 65 ? "#10b981" : hlProb > 40 ? "#00f2fe" : "#f59e0b";
-    ctx.fill();
-    ctx.lineWidth = 2;
     ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 2;
     ctx.stroke();
 
-    // Floating Tooltip Badge with Price, Odds and EV
-    const tooltipText = `$${clampedPrice.toLocaleString()} · ${hlProb}% odds · EV: $${ev.toLocaleString()}`;
-    ctx.font = "bold 11px JetBrains Mono";
+    // Floating Tooltip Badge
+    const tooltipText = `$${clampedPrice.toLocaleString()} (${hlProb}% odds · $EV: $${ev.toLocaleString()})`;
+    ctx.font = "bold 10px JetBrains Mono";
     const textWidth = ctx.measureText(tooltipText).width;
-    const badgeW = textWidth + 20;
-    const badgeH = 26;
+    const badgeW = textWidth + 16;
+    const badgeH = 22;
     const badgeX = Math.max(padding.left, Math.min(width - padding.right - badgeW, hlX - badgeW / 2));
-    const badgeY = hlY - 36 > padding.top ? hlY - 36 : hlY + 16;
+    const badgeY = hlY - 30 > padding.top ? hlY - 30 : hlY + 12;
 
-    // Badge shadow & background
-    ctx.fillStyle = "rgba(5, 8, 17, 0.95)";
+    ctx.fillStyle = "#0c1018";
     ctx.beginPath();
-    ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 6);
+    ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 5);
     ctx.fill();
 
-    ctx.strokeStyle = "rgba(0, 242, 254, 0.5)";
+    ctx.strokeStyle = "rgba(0, 242, 254, 0.4)";
     ctx.lineWidth = 1;
     ctx.stroke();
 
     ctx.fillStyle = "#ffffff";
     ctx.textAlign = "center";
-    ctx.fillText(tooltipText, badgeX + badgeW / 2, badgeY + 17);
+    ctx.fillText(tooltipText, badgeX + badgeW / 2, badgeY + 15);
   }
 }
 
-// 17. Regenerate Gemma Pitch
+// 12. Regenerate Pitch
 async function regeneratePitch(creatorProfile) {
   if (!creatorProfile) {
     creatorProfile = {
-      creator_name: document.getElementById("creatorName").value,
-      channel_name: document.getElementById("creatorName").value,
+      creator_name: document.getElementById("creatorName").value || "Creator",
+      channel_name: document.getElementById("creatorName").value || "Channel",
       platform: document.getElementById("platformSelect").value,
       niche: document.getElementById("nicheSelect").value,
       followers: parseFloat(document.getElementById("followerCount").value) || 50000,
@@ -897,10 +517,6 @@ async function regeneratePitch(creatorProfile) {
     });
     currentPitch = await res.json();
 
-    const brandName = (currentDeal ? currentDeal.brand_name : "Sponsor").toLowerCase().replace(/\s+/g, '');
-    const recipientEl = document.getElementById("pitchRecipient");
-    if (recipientEl) recipientEl.textContent = `partnerships@${brandName}.com`;
-
     document.getElementById("pitchSubject").value = currentPitch.subject;
     document.getElementById("pitchBody").value = currentPitch.body;
 
@@ -914,26 +530,20 @@ async function regeneratePitch(creatorProfile) {
       });
     }
 
-    updatePitchMetrics();
-
   } catch (err) {
     console.error("Error generating pitch:", err);
   }
 }
 
-// 18. Render Brand Intel (SerpApi Grounding)
-function renderIntelTab() {
+// 13. Render Brand Intel
+function renderIntel() {
   if (!currentIntel) return;
 
   const bName = currentIntel.brand_name || "Sponsor";
-  document.getElementById("intelBrandName").textContent = `${bName} Brand Dossier`;
+  document.getElementById("intelBrandName").textContent = `${bName} Brand Intelligence`;
   document.getElementById("intelBrandType").textContent = currentIntel.type;
   document.getElementById("intelBudgetBadge").textContent = currentIntel.estimated_budget_tier;
   document.getElementById("intelLeverageTip").textContent = currentIntel.leverage_tip;
-
-  // Set avatar initial
-  const iconEl = document.getElementById("intelBrandIcon");
-  if (iconEl) iconEl.textContent = bName.charAt(0).toUpperCase();
 
   const sigList = document.getElementById("intelSignalsList");
   if (sigList) {
@@ -946,8 +556,8 @@ function renderIntelTab() {
   }
 }
 
-// 19. Render DEV Hacktoberfest Submission Tab
-function renderSubmissionTab(creatorProfile) {
+// 14. Render DEV Submission
+function renderSubmission(creatorProfile) {
   const brand = currentDeal ? currentDeal.brand_name : "Sponsor";
   const fmv = currentPrediction ? currentPrediction.fair_market_value : 1420;
   const offered = currentPrediction ? currentPrediction.offered_amount : 450;
@@ -1004,7 +614,7 @@ Unlike linear CPM calculators that multiply impressions by a flat number, TabPFN
 - **Dataset**: 1,200+ verified sponsorship deals across YouTube, Substack, and Podcasts
 - **Cloud Hosting**: Render Blueprint (\`render.yaml\`) with zero-downtime containerization
 - **Grounding**: SerpApi Knowledge Graph & Brand Sponsor Comps
-- **Frontend**: Dark Obsidian UI with real-time Canvas Probability Curves
+- **Frontend**: Clean Minimalist Dark UI with real-time Canvas Probability Curves
 
 Built with ❤️ for Hacktoberfest 2026.`;
 
