@@ -236,7 +236,7 @@ def run_server(start_port=8080):
         try:
             server_address = ("", p)
             httpd = ThreadedHTTPServer(server_address, SponsorScopeHandler)
-            print(f"🚀 SponsorScope AI Server listening on http://localhost:{p}")
+            print(f"SponsorScope server running at http://localhost:{p}")
             httpd.serve_forever()
             break
         except OSError as e:

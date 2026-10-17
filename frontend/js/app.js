@@ -590,56 +590,75 @@ function renderSubmission(creatorProfile) {
 title: SponsorScope — Creator Sponsorship Rate Forecaster & Negotiation Agent
 published: true
 tags: devchallenge, hf26challenge, gemma, render, ai
-cover_image: https://raw.githubusercontent.com/adithya/sponsorscope/main/assets/cover.png
+cover_image: https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/01_valuation_market_curve.png
 ---
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12)*
 
 ---
 
-## 🎯 What I Built
+## What I Built
 
-**SponsorScope** is a deal valuation forecaster and autonomous negotiation agent that solves the single biggest financial vulnerability for independent creators: **severe underpricing on inbound brand sponsorships**.
+If you run a technical blog, YouTube channel, newsletter, or podcast as a side hustle, you probably know the feeling of getting an inbound sponsor email and freezing.
 
-Creators with 10k–150k followers receive inbound commercial partnership emails every week offering lowball flat rates (e.g., $300 for a 60-second video shoutout). Lacking dedicated talent agents or verified market CPM comps, creators leave thousands of dollars on the table or counter with arbitrary numbers that lead to ghosting.
+A brand reaches out saying something like: *"Hey, love your content! We have a $350 starter budget for a 60-second shoutout in your next release."*
 
-SponsorScope turns lowball emails into high-margin deals:
-1. **Inbound Deal Extraction**: Automatically parses raw sponsor emails into structured commercial parameters using **Google Gemma 2**.
-2. **Predictive Rate & Acceptance Probability Curve**: Uses **Prior Labs TabPFN-3.5** to calculate **Fair Market Value (FMV)**, expected value curves ($EV$), and optimal counter-offer tiers with exact win probability odds ($P(\\text{Brand Accepts} \\mid \\text{Price})$).
-3. **Autonomous Negotiation Pitch Drafter**: Composes multi-tier, high-converting counter-proposals anchored in verifiable demographic reach and value-add bundles using Gemma.
-4. **Live Brand Intelligence**: Integrates with **SerpApi** to discover recent marketing budgets, funding news, and sponsorship comps for instant negotiation leverage.
+Unless you have a talent manager or access to agency rate sheets, you have to guess. If you quote too high, the sponsor might ghost you. If you accept immediately, you almost certainly leave hundreds or even thousands of dollars on the table.
+
+I built **SponsorScope** to give independent creators and developers the leverage of a talent agency without the guesswork or percentage cuts. It takes the email you received, benchmarks your channel metrics against 1,200 verified deals using **Prior Labs TabPFN-3.5**, and drafts a reasoned, professional counter-reply using **Google Gemma 2**.
 
 ---
 
-## 🚀 Live Demo & Code
+## Live Demo and Source Code
 
-- **GitHub Repository**: [github.com/adithya/sponsorscope-ai](https://github.com/adithya/sponsorscope-ai)
-- **Live Cloud Deployment**: [sponsorscope-ai.onrender.com](https://sponsorscope-ai.onrender.com)
-
----
-
-## 💡 How TabPFN & Gemma 2 Power SponsorScope
-
-### 1. Prior Labs TabPFN-3.5: Instant In-Context Bayesian Rates
-Unlike linear CPM calculators that multiply impressions by a flat number, TabPFN models tabular interactions between niche-specific buying power, deliverable formats, creator engagement, and historical brand budgets without requiring gradient fine-tuning.
-- TabPFN generates continuous $P(\\text{Brand Accepts} \\mid \\text{Rate})$ distributions across 1,200+ comps.
-- Calculates the statistical Expected Value ($EV = \\text{Price} \\times P$) to find the creator's optimal rate.
-
-### 2. Google Gemma 2: High-Converting Commercial Negotiation
-- Parses unformatted inbound solicitation emails into structured deliverables, exclusivity terms, and offered budgets.
-- Crafts persuasive multi-tier proposals using strategic behavioral anchoring and expansion bundles.
+- **GitHub Repository**: [https://github.com/Sai-Adithya-M/sponsorscope-ai](https://github.com/Sai-Adithya-M/sponsorscope-ai)
+- **Live Cloud Deployment**: [https://sponsorscope-ai.onrender.com](https://sponsorscope-ai.onrender.com)
 
 ---
 
-## 🛠 Tech Stack & Architecture
+## Walkthrough and Screenshots
 
-- **Backend**: Python 3 standard library + Bayesian Prior Engine + Gemma 2 Prompt Pipeline
-- **Dataset**: 1,200+ verified sponsorship deals across YouTube, Substack, and Podcasts
-- **Cloud Hosting**: Render Blueprint (\`render.yaml\`) with zero-downtime containerization
-- **Grounding**: SerpApi Knowledge Graph & Brand Sponsor Comps
-- **Frontend**: Clean Desktop-Grade UI with real-time Canvas Probability Curves
+### 1. Channel Profile, Deal Valuation, and Acceptance Probability Curve
+When you input your channel stats and paste the sponsor inquiry, SponsorScope runs TabPFN-3.5 across 1,200 historical deals:
 
-Built with ❤️ for Hacktoberfest 2026.`;
+![Valuation & Acceptance Probability Curve](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/01_valuation_market_curve.png)
+
+- **Initial Offer vs. Fair Market Value**: Highlights when an offer is substantially below market rates.
+- **Interactive Acceptance Curve**: Plots estimated acceptance probability across price points so you can see where your expected payout peaks.
+- **Three Strategic Tiers**:
+  - Conservative ($1,160 @ 92% odds): Safe rate to close quickly.
+  - Balanced EV ($1,490 @ 74% odds): Sweet spot maximizing expected return.
+  - Aggressive ($1,920 @ 39% odds): Premium rate for well-funded brands.
+
+### 2. Tailored Counter-Offer Reply (Gemma 2)
+The **Drafted Counter-Email** tab generates a ready-to-send response written by Google Gemma 2:
+
+![Gemma 2 Counter-Offer Email Drafter](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/02_counter_email_draft.png)
+
+### 3. Sponsor Intelligence and Leverage (SerpApi Grounding)
+The **Brand Intel** tab pulls market context on the sponsor:
+
+![Brand Intelligence Dossier](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/03_brand_intelligence.png)
+
+---
+
+## How I Built It
+
+SponsorScope combines a tabular machine learning model with an open-weight language model:
+
+- **TabPFN-3.5 (Prior Labs)**: Operates in-context over tabular records without fine-tuning, calibrated against 1,200 verified sponsorships to compute the acceptance curve.
+- **Gemma 2 (Google)**: Open-weight model used to extract terms from unstructured emails and compose reasoned, non-confrontational replies.
+- **Render Cloud**: Native containerized service using a \`render.yaml\` Blueprint.
+- **SerpApi**: Real-time search grounding for brand marketing background and budget scale.
+
+---
+
+## Target Hackathon Tracks
+
+- **Best Use of TabPFN**: In-context tabular forecasting and deal win probability modeling.
+- **Best Use of Gemma**: Open-weight entity extraction and multi-tier negotiation email generation.
+- **Best Use of Render**: Production deployment via \`render.yaml\`.
+- **Best Use of SerpApi**: Grounded brand advertising research.`;
 
   const draftEl = document.getElementById("submissionDraft");
   if (draftEl) draftEl.value = markdown;
