@@ -35,7 +35,7 @@ When you input your channel stats (platform, niche, subscriber count, 30-day med
 ![Valuation & Acceptance Probability Curve](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/01_valuation_market_curve.png)
 
 - **Initial Offer vs. Fair Market Value**: Highlights when an offer is substantially below market rates (for instance, an offer of $450 against a benchmark of $1,420).
-- **Interactive Acceptance Curve**: Plots estimated acceptance probability across price points so you can see where your expected payout ($EV = \text{Price} \times \text{Odds}$) peaks.
+- **Interactive Acceptance Curve**: Plots estimated acceptance probability across price points so you can see where your expected payout (Price × Acceptance Odds) peaks.
 - **Three Strategic Tiers**:
   - *Conservative* ($1,160 @ 92% odds): A safe rate designed to close quickly when you want reliable cash flow.
   - *Balanced EV* ($1,490 @ 74% odds): The statistical sweet spot that maximizes overall expected revenue.
@@ -88,7 +88,7 @@ SponsorScope combines a tabular machine learning model with an open-weight langu
 - **Implementation**: `services/tabpfn_engine.py`
 - Most online sponsorship calculators simply multiply view count by a flat number (e.g., views × $0.05). But real-world rates depend on niche-specific buying power, exclusivity clauses, platform format, and audience engagement.
 - TabPFN is Prior Labs' tabular foundation model. It operates in-context over tabular records without requiring fine-tuning, making it well-suited for modeling small-sample tabular interactions.
-- We calibrate it against 1,200 verified creator sponsorships to generate the acceptance probability decay curve $P(\text{Brand Accepts} \mid \text{Price})$ and identify the expected value peak.
+- We calibrate it against 1,200 verified creator sponsorships to generate the acceptance probability decay curve based on rate changes and identify the expected value peak.
 
 ### 2. Negotiation Drafting with Google Gemma 2
 - **Implementation**: `services/gemma_engine.py`
