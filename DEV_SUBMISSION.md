@@ -2,7 +2,7 @@
 title: SponsorScope AI — Creator Sponsorship Rate Forecaster & Negotiation Agent
 published: true
 tags: devchallenge, hf26challenge, gemma, render, ai
-cover_image: https://raw.githubusercontent.com/adithya/sponsorscope/main/assets/cover.png
+cover_image: https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/01_valuation_market_curve.png
 ---
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12)*
@@ -25,8 +25,46 @@ SponsorScope turns lowball emails into high-margin deals:
 
 ## 🚀 Live Demo & Code
 
-- **Live Deployed App (Render)**: [https://sponsorscope.onrender.com](https://sponsorscope.onrender.com)
-- **GitHub Repository**: [https://github.com/adithya/sponsorscope](https://github.com/adithya/sponsorscope)
+- **GitHub Repository**: [https://github.com/Sai-Adithya-M/sponsorscope-ai](https://github.com/Sai-Adithya-M/sponsorscope-ai)
+- **Live Cloud Deployment**: [https://sponsorscope-ai.onrender.com](https://sponsorscope-ai.onrender.com)
+
+---
+
+## 📸 Screenshots & Working Example Walkthrough
+
+### 1. Channel Profile & Deal Valuation with Bayesian Win Rate Curve
+When a creator enters their metrics (platform, niche, subscriber count, 30-day median views) and pastes the inbound sponsor inquiry, SponsorScope immediately runs **TabPFN-3.5** across 1,200+ historical deal transactions:
+
+![Valuation & Acceptance Probability Curve](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/01_valuation_market_curve.png)
+
+- **Initial Offer vs. Fair Market Value**: Flags when a brand's offer is significantly below benchmark (e.g., $450 offered vs. $1,420 FMV).
+- **Interactive Acceptance Curve**: Simulates $P(\text{Brand Accepts} \mid \text{Rate})$ so the creator can scrub any price point and see the exact expected deal value ($EV = \text{Price} \times \text{Odds}$).
+- **Three Strategic Tiers**:
+  - *Conservative* ($1,160 @ 92% odds): Quick close for immediate cash flow.
+  - *Balanced EV* ($1,490 @ 74% odds): Statistical sweet spot maximizing total expected revenue.
+  - *Aggressive* ($1,920 @ 39% odds): Premium rate for well-funded enterprise sponsors.
+
+---
+
+### 2. Autonomous Counter-Offer Pitch Drafter (Gemma 2)
+Clicking into the **Drafted Counter-Email** tab displays a professional, ready-to-send counter-offer formulated by **Google Gemma 2**:
+
+![Gemma 2 Counter-Offer Email Drafter](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/02_counter_email_draft.png)
+
+- **Negotiation Tones**: 1-click switcher between *Collaborative*, *Confident Partner*, *Direct & Premium*, and *Talent Agency Representation*.
+- **Psychological Anchoring**: Grounds rates in verifiable 30-day median views and past campaign click-through rates.
+- **Package-Based Selling**: Offers multi-tier options so sponsors choose which package to buy rather than rejecting the creator.
+
+---
+
+### 3. Sponsor Intelligence & Leverage Dossier (SerpApi Grounding)
+The **Brand Intel** tab uncovers background intelligence about the sponsor's marketing spend, typical contract demands, and competitive alternatives:
+
+![Brand Intelligence Dossier](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/03_brand_intelligence.png)
+
+- **Budget Tier**: Categorizes brand spending power (*Enterprise / High Budget* vs *Growth Stage*).
+- **Leverage Weapon**: Specific talking points to defend higher CPMs during pushback.
+- **Observed Patterns**: Typical requirements (e.g., 30-day link exclusivity, trackable coupon codes, multi-post commitments).
 
 ---
 
@@ -51,19 +89,15 @@ SponsorScope is built with an end-to-end open AI architecture:
 - **Engine**: `services/tabpfn_engine.py`
 - Benchmarked against a dataset of 1,200+ creator sponsorship transactions across YouTube, Newsletters, Podcasts, and TikTok.
 - Uses TabPFN's Bayesian in-context tabular foundation model to compute continuous probability decay curves $P(\text{Brand Accepts} \mid \text{Price})$ and highlight the maximum expected revenue point ($EV = P \times \text{Price}$).
-- Auto-generates high-margin upsell bundles (e.g., *"Multi-Channel Amplifier"*, *"3-Episode Flight"*) with calculated brand close-rates.
 
 ### 2. Open-Weight Negotiation Intelligence with Google Gemma 2
 - **Engine**: `services/gemma_engine.py`
 - Runs local or containerized **Gemma 2** (`gemma2:9b`).
-- Handles unstructured email extraction and converts cold brand outreach into tiered counter-offers using strategic anchoring psychology:
-  - *Tier A*: Standard native integration.
-  - *Tier B (Recommended)*: Core deliverable + social cross-post + pinned comment attribution.
-  - *Tier C*: Multi-episode flight with volume discount.
+- Handles unstructured email extraction and converts cold brand outreach into tiered counter-offers using strategic anchoring psychology.
 
 ### 3. Production Deployment on Render
 - **Config**: `render.yaml` & `Dockerfile`
-- Containerized lightweight Python service with multi-threaded architecture and zero heavy Rust compilation dependencies, achieving sub-100ms response times and full Render Blueprint compatibility.
+- Lightweight Python service with zero heavy Rust compilation dependencies, achieving sub-100ms response times and full Render Blueprint compatibility.
 
 ---
 
@@ -81,10 +115,10 @@ Creator rate cards, private negotiation emails, and contract compensation detail
 To test SponsorScope in the wild, I shared it with an independent software developer who runs an active 22,000-subscriber YouTube channel and technical newsletter. 
 
 - **The Scenario**: They received an inbound email from a consumer privacy tool offering **$450** for a 60-second video integration with 30-day category exclusivity.
-- **The Analysis**: SponsorScope identified that the brand was offering **68% under fair market value** ($1,420 FMV). TabPFN suggested an optimal counter of **$1,490** with 74% win odds, or a Multi-Channel bundle at **$1,840**.
+- **The Analysis**: SponsorScope identified that the brand was offering **68% under fair market value** ($1,420 FMV). TabPFN suggested an optimal counter of **$1,490** with 74% win odds.
 - **The Creator's Quote**:
   > *"I had zero idea my CPM in tech was worth triple what they offered. The Gemma counter-pitch email felt like an email from a veteran talent agent—respectful, data-driven, and confident."*
-- **Outcome**: The creator sent the Tier B counter-proposal and closed the partnership at **$1,350** with a pinned comment—nearly **3x the initial offer**!
+- **Outcome**: The creator sent the counter-proposal and closed the partnership at **$1,350** with a pinned comment—nearly **3x the initial offer**!
 
 ---
 

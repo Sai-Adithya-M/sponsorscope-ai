@@ -6,11 +6,24 @@
 
 ## 🌟 Overview
 
-**SponsorScope AI** turns lowball brand sponsorship emails into maximized accepted deals. It combines:
+**SponsorScope** turns lowball brand sponsorship emails into maximized accepted deals. It combines:
 1. **Prior Labs TabPFN-3.5**: Tabular foundation model that calculates Fair Market Value (FMV), expected revenue curves ($EV$), and deal acceptance probability curves $P(\text{Brand Accepts} \mid \text{Price})$.
 2. **Google Gemma 2**: Open-weight LLM that parses unstructured inbound emails and drafts tiered negotiation counter-proposals with anchoring psychology.
 3. **SerpApi**: Real-time brand marketing intelligence and budget tier grounding.
 4. **Render Ready**: Complete `render.yaml` Blueprint for 1-click cloud deployment.
+
+---
+
+## 📸 Screenshots
+
+### 1. Valuation & Bayesian Acceptance Probability Curve
+![Valuation & Market Curve](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/01_valuation_market_curve.png)
+
+### 2. Autonomous Counter-Offer Pitch Drafter (Gemma 2)
+![Counter-Email Drafter](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/02_counter_email_draft.png)
+
+### 3. Brand Marketing Intelligence & Leverage Dossier (SerpApi)
+![Brand Intelligence](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/03_brand_intelligence.png)
 
 ---
 
@@ -22,6 +35,8 @@
 ├── Dockerfile                       # Container deployment definition
 ├── requirements.txt                 # Python dependencies
 ├── DEV_SUBMISSION.md                # Official DEV.to submission writeup
+├── docs/
+│   └── screenshots/                 # Application screenshots
 ├── data/
 │   └── creator_deals_benchmark.csv  # 1,200+ creator sponsorship benchmark records
 ├── services/
@@ -29,11 +44,11 @@
 │   ├── gemma_engine.py              # Google Gemma 2 extraction & negotiation agent
 │   └── serpapi_engine.py            # SerpApi brand intelligence research engine
 └── frontend/
-    ├── index.html                   # Glassmorphic responsive UI & canvas visualizer
+    ├── index.html                   # Clean desktop-software layout
     ├── css/
-    │   └── style.css                # Custom dark design tokens & micro-interactions
+    │   └── style.css                # Minimalist, rectangular dark styling (no pill fluff)
     └── js/
-        └── app.js                   # Reactive controller & interactive probability graph
+        └── app.js                   # Reactive controller & interactive canvas graph
 ```
 
 ---
@@ -42,40 +57,24 @@
 
 ### 1. Clone & Enter Directory
 ```bash
-git clone https://github.com/adithya/sponsorscope.git
-cd sponsorscope
+git clone https://github.com/Sai-Adithya-M/sponsorscope-ai.git
+cd sponsorscope-ai
 ```
 
-### 2. Install Dependencies (Optional)
-```bash
-pip install -r requirements.txt
-```
-*(Note: `server.py` relies solely on standard Python 3 and `requests`, running immediately with zero Rust/C++ compilation overhead).*
-
-### 3. Run the Server
+### 2. Run the Server
 ```bash
 python3 server.py
 ```
 Open **[http://localhost:8080](http://localhost:8080)** in your browser!
 
----
-
-## ⚙️ Environment Variables (Optional)
-
-| Variable | Description | Default |
-| :--- | :--- | :--- |
-| `PORT` | Web server port | `8080` (auto-falls back if taken) |
-| `TABPFN_API_KEY` | Prior Labs TabPFN API key (from [platform.priorlabs.ai](https://platform.priorlabs.ai)) | Simulated calibrated fallback |
-| `SERPAPI_API_KEY` | SerpApi key for live brand Google search grounding | Curated brand profiles |
-| `OLLAMA_API_URL` | Local Ollama endpoint for Gemma 2 | `http://localhost:11434/api/generate` |
-| `GEMMA_MODEL_NAME` | Gemma model identifier | `gemma2:9b` |
+*(Note: `server.py` relies solely on standard Python 3 and `requests`, running immediately with zero Rust/C++ compilation overhead).*
 
 ---
 
-## 🏆 Hacktoberfest 2026 Categories Covered
+## 🧪 How to Test with Your Own Deal
 
-- **Best Use of TabPFN** ($200): Used for zero-shot tabular rate prediction, pricing tiers, and continuous win-odds decay modeling.
-- **Best Use of Gemma** ($200): Used for email parsing and negotiation counter-pitch drafting.
-- **Best Use of Render** ($200): Production deployment blueprint via `render.yaml`.
-- **Best Use of SerpApi** ($200): Live corporate brand intelligence search.
-- **Hacktoberfest Week 2 Theme (Side Hustle)**: Directly monetizable tool solving creator underpricing.
+1. Open **`http://localhost:8080`**.
+2. Enter your channel metrics in the left panel (Platform, Niche, Subscribers, Median Views, Engagement Rate).
+3. Paste any sponsorship inquiry email you received into the **Inbound Sponsor Message** box.
+4. Click **"Calculate Rates & Draft Reply"**.
+5. Inspect the calculated **Fair Market Value**, scrub the **Acceptance Curve**, and copy your tailored reply from the **Drafted Counter-Email** tab!
