@@ -53,7 +53,7 @@ class SponsorScopeHandler(BaseHTTPRequestHandler):
                 "engines": {
                     "tabpfn": "Prior Labs TabPFN-3.5 Tabular Predictor",
                     "gemma": "Google Gemma 2 Open-Weight Agent",
-                    "deployment": "Render Ready"
+                    "deployment": "Local Python Server"
                 }
             }).encode("utf-8"))
             return

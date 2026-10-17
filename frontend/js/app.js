@@ -587,15 +587,13 @@ function renderSubmission(creatorProfile) {
   const balanced = currentPrediction ? currentPrediction.tiers.balanced.rate : 1490;
 
   const markdown = `---
-title: SponsorScope — Creator Sponsorship Rate Forecaster & Negotiation Agent
+title: SponsorScope: Creator Sponsorship Rate Forecaster and Negotiation Agent
 published: true
-tags: devchallenge, hf26challenge, gemma, render, ai
+tags: devchallenge, hf26challenge, gemma, tabpfn
 cover_image: https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/01_valuation_market_curve.png
 ---
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12)*
-
----
 
 ## What I Built
 
@@ -609,10 +607,10 @@ I built **SponsorScope** to give independent creators and developers the leverag
 
 ---
 
-## Live Demo and Source Code
+## Source Code and Local Quickstart
 
 - **GitHub Repository**: [https://github.com/Sai-Adithya-M/sponsorscope-ai](https://github.com/Sai-Adithya-M/sponsorscope-ai)
-- **Live Cloud Deployment**: [https://sponsorscope-ai.onrender.com](https://sponsorscope-ai.onrender.com)
+- **Local Quickstart**: Run locally in seconds with \`python3 server.py\` (privacy-first, no external account needed)
 
 ---
 
@@ -648,7 +646,7 @@ SponsorScope combines a tabular machine learning model with an open-weight langu
 
 - **TabPFN-3.5 (Prior Labs)**: Operates in-context over tabular records without fine-tuning, calibrated against 1,200 verified sponsorships to compute the acceptance curve.
 - **Gemma 2 (Google)**: Open-weight model used to extract terms from unstructured emails and compose reasoned, non-confrontational replies.
-- **Render Cloud**: Native containerized service using a \`render.yaml\` Blueprint.
+- **Local Python Architecture**: Fast zero-dependency threaded HTTP service running on your machine.
 - **SerpApi**: Real-time search grounding for brand marketing background and budget scale.
 
 ---
@@ -657,7 +655,6 @@ SponsorScope combines a tabular machine learning model with an open-weight langu
 
 - **Best Use of TabPFN**: In-context tabular forecasting and deal win probability modeling.
 - **Best Use of Gemma**: Open-weight entity extraction and multi-tier negotiation email generation.
-- **Best Use of Render**: Production deployment via \`render.yaml\`.
 - **Best Use of SerpApi**: Grounded brand advertising research.`;
 
   const draftEl = document.getElementById("submissionDraft");

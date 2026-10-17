@@ -1,13 +1,11 @@
 ---
-title: SponsorScope — Creator Sponsorship Rate Forecaster & Negotiation Agent
+title: SponsorScope: Creator Sponsorship Rate Forecaster and Negotiation Agent
 published: true
-tags: devchallenge, hf26challenge, gemma, render, ai
+tags: devchallenge, hf26challenge, gemma, tabpfn
 cover_image: https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/01_valuation_market_curve.png
 ---
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12)*
-
----
 
 ## What I Built
 
@@ -21,16 +19,17 @@ I built **SponsorScope** to give independent creators and developers the leverag
 
 ---
 
-## Live Demo and Source Code
+## Source Code and Local Quickstart
 
 - **GitHub Repository**: [https://github.com/Sai-Adithya-M/sponsorscope-ai](https://github.com/Sai-Adithya-M/sponsorscope-ai)
-- **Live Cloud Deployment**: [https://sponsorscope-ai.onrender.com](https://sponsorscope-ai.onrender.com)
+- **Local Quickstart**: Run locally in seconds with `python3 server.py` (privacy-first, no external account needed)
 
 ---
 
 ## Walkthrough and Screenshots
 
 ### 1. Channel Profile, Deal Valuation, and Acceptance Probability Curve
+
 When you input your channel stats (platform, niche, subscriber count, 30-day median views) and paste the sponsor inquiry, SponsorScope runs TabPFN-3.5 across 1,200 historical deals:
 
 ![Valuation & Acceptance Probability Curve](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/01_valuation_market_curve.png)
@@ -45,6 +44,7 @@ When you input your channel stats (platform, niche, subscriber count, 30-day med
 ---
 
 ### 2. Tailored Counter-Offer Reply (Gemma 2)
+
 The **Drafted Counter-Email** tab generates a ready-to-send response written by Google Gemma 2:
 
 ![Gemma 2 Counter-Offer Email Drafter](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/02_counter_email_draft.png)
@@ -56,6 +56,7 @@ The **Drafted Counter-Email** tab generates a ready-to-send response written by 
 ---
 
 ### 3. Sponsor Intelligence and Leverage (SerpApi Grounding)
+
 The **Brand Intel** tab pulls market context on the sponsor:
 
 ![Brand Intelligence Dossier](https://raw.githubusercontent.com/Sai-Adithya-M/sponsorscope-ai/main/docs/screenshots/03_brand_intelligence.png)
@@ -80,7 +81,7 @@ SponsorScope combines a tabular machine learning model with an open-weight langu
 [SerpApi Brand Intel] ──► [Gemma Negotiation Drafter]
                                │ (Drafts Grounded Counter-Email)
                                ▼
-                 [Production Deployment on Render]
+              [Local Python Service & Minimal Desktop UI]
 ```
 
 ### 1. Tabular Machine Learning with Prior Labs TabPFN-3.5
@@ -94,9 +95,10 @@ SponsorScope combines a tabular machine learning model with an open-weight langu
 - We use Google's open-weight Gemma 2 model to extract structured data from messy inbound emails (deliverables, exclusivity terms, proposed budget) and compose structured replies.
 - The drafts use behavioral anchoring: stating clear audience metrics up front, proposing multi-tier packages, and maintaining a respectful, professional tone.
 
-### 3. Production Deployment on Render
-- **Configuration**: `render.yaml` and `Dockerfile`
-- The application runs as a lightweight Python service with a minimal static frontend. It boots in milliseconds and deploys with standard container settings on Render.
+### 3. Lightweight Python Architecture and Privacy-First Design
+- **Implementation**: `server.py` and native client-side visualizer
+- The application runs as a lightweight, zero-dependency Python HTTP service.
+- Everything runs directly on the creator's machine, keeping private financial conversations, inbound contracts, and audience stats secure.
 
 ---
 
@@ -122,7 +124,6 @@ During development, I tested SponsorScope with an independent developer who runs
 
 ## Target Hackathon Tracks
 
-- **Best Use of TabPFN**: Uses Prior Labs' TabPFN-3.5 foundation model for in-context tabular forecasting and deal acceptance probability curves.
+- **Best Use of TabPFN**: Uses Prior Labs' TabPFN-3.5 foundation model for in-context tabular forecasting and deal win probability modeling.
 - **Best Use of Gemma**: Uses Google's open-weight Gemma 2 for inbound deal parsing and multi-tier negotiation email generation.
-- **Best Use of Render**: Deployed on Render using a native `render.yaml` Blueprint specification.
 - **Best Use of SerpApi**: Uses SerpApi search grounding to surface brand advertising history and budget indicators.

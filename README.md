@@ -10,7 +10,7 @@ SponsorScope helps independent creators and developers evaluate inbound sponsors
 1. **Prior Labs TabPFN-3.5**: Tabular foundation model that calculates Fair Market Value (FMV), expected revenue curves ($EV$), and deal acceptance probability curves based on 1,200 verified sponsorships.
 2. **Google Gemma 2**: Open-weight language model that extracts terms from unstructured emails and drafts professional, tiered counter-proposals.
 3. **SerpApi**: Real-time brand advertising context and budget indicator lookup.
-4. **Render Ready**: Native `render.yaml` Blueprint for containerized cloud deployment.
+4. **Privacy-First Local Execution**: Zero-setup local Python HTTP service that keeps private financial negotiations on your machine.
 
 ---
 
