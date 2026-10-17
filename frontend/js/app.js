@@ -1,6 +1,6 @@
 // ==========================================================================
-// SponsorScope AI — Clean Client Application Controller
-// Uncluttered, reactive forecaster & negotiation drafter
+// SponsorScope — Clean Application Controller
+// Human-like, reliable, rectangular desktop tool logic
 // ==========================================================================
 
 let currentPrediction = null;
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initCopyButtons();
   initCanvasInteraction();
   initClearButton();
+  initGuideToggle();
 
   window.addEventListener("resize", () => {
     if (currentPrediction) {
@@ -32,33 +33,53 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Pre-render initial clean baseline simulation
+  // Pre-render clean baseline data on startup
   runInitialBaseline();
 });
 
-// 1. Navigation Tabs
+// 1. Clean Rectangular Tabs
 function initTabs() {
-  const tabBtns = document.querySelectorAll(".tab-btn");
+  const tabBtns = document.querySelectorAll(".clean-tab");
   tabBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       tabBtns.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
 
       const targetTab = btn.getAttribute("data-tab");
-      document.querySelectorAll(".tab-content").forEach(tc => tc.style.display = "none");
+      document.querySelectorAll(".tab-pane").forEach(tp => tp.style.display = "none");
       const targetEl = document.getElementById(targetTab);
       if (targetEl) targetEl.style.display = "block";
 
       if (targetTab === "tabValuation" && currentPrediction) {
-        setTimeout(() => drawProbabilityCurve(currentPrice), 50);
+        setTimeout(() => drawProbabilityCurve(currentPrice), 40);
       }
     });
   });
 }
 
-// 2. Tone Buttons
+// 2. Guide Toggle
+function initGuideToggle() {
+  const helpToggle = document.getElementById("btnHelpToggle");
+  const closeGuide = document.getElementById("btnCloseGuide");
+  const guideBox = document.getElementById("howToTest");
+
+  if (helpToggle && guideBox) {
+    helpToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      guideBox.style.display = (guideBox.style.display === "none" || !guideBox.style.display) ? "block" : "none";
+    });
+  }
+
+  if (closeGuide && guideBox) {
+    closeGuide.addEventListener("click", () => {
+      guideBox.style.display = "none";
+    });
+  }
+}
+
+// 3. Tone Selector Buttons
 function initToneButtons() {
-  const btns = document.querySelectorAll(".tone-btn");
+  const btns = document.querySelectorAll(".btn-choice");
   btns.forEach(btn => {
     btn.addEventListener("click", () => {
       btns.forEach(b => b.classList.remove("active"));
@@ -71,7 +92,7 @@ function initToneButtons() {
   });
 }
 
-// 3. Clear Email Button
+// 4. Clear Email Button
 function initClearButton() {
   const btn = document.getElementById("btnClearEmail");
   if (btn) {
@@ -83,7 +104,7 @@ function initClearButton() {
   }
 }
 
-// 4. Interactive Price Slider
+// 5. Interactive Price Slider
 function initSlider() {
   const slider = document.getElementById("priceSlider");
   if (!slider) return;
@@ -115,7 +136,7 @@ function updateSliderUI(price) {
   }
 }
 
-// 5. Canvas Mouse Interaction
+// 6. Canvas Mouse Interaction
 function initCanvasInteraction() {
   const canvas = document.getElementById("probCanvas");
   if (!canvas) return;
@@ -167,7 +188,7 @@ function initCanvasInteraction() {
   });
 }
 
-// 6. Strategy Tiers
+// 7. Strategy Tiers
 function initTiers() {
   const cards = document.querySelectorAll(".tier-card");
   cards.forEach(card => {
@@ -188,14 +209,14 @@ function initTiers() {
   });
 }
 
-// 7. Copy Buttons
+// 8. Copy Buttons & Toasts
 function initCopyButtons() {
   const btnCopyPitch = document.getElementById("btnCopyPitch");
   if (btnCopyPitch) {
     btnCopyPitch.addEventListener("click", () => {
       const text = document.getElementById("pitchBody").value;
       navigator.clipboard.writeText(text).then(() => {
-        showToast("Counter-pitch copied to clipboard!");
+        showToast("Email text copied to clipboard");
       });
     });
   }
@@ -205,7 +226,7 @@ function initCopyButtons() {
     btnCopySubm.addEventListener("click", () => {
       const text = document.getElementById("submissionDraft").value;
       navigator.clipboard.writeText(text).then(() => {
-        showToast("DEV submission markdown copied!");
+        showToast("DEV challenge writeup copied");
       });
     });
   }
@@ -217,12 +238,12 @@ function showToast(msg) {
   if (!toast || !text) return;
   text.textContent = msg;
   toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 2400);
+  setTimeout(() => toast.classList.remove("show"), 2200);
 }
 
-// 8. Initial Baseline Simulation (Clean default on page load)
+// 9. Initial Baseline Simulation on Page Load
 function runInitialBaseline() {
-  const defaultEmail = "Hi Alex,\n\nWe came across your channel and would love to sponsor a 60-second integration in an upcoming video. Our standard allocation for this integration is $450 flat with 30-day category exclusivity.\n\nLet us know if this works for you!\n\nBest,\nSponsor Partnerships";
+  const defaultEmail = "Hi Alex,\n\nWe love your tech videos and want to sponsor a 60-second integration next month. Our standard starter budget is $450 with 30 days category exclusivity. Let us know if you're interested!\n\nBest,\nSponsor Partnerships";
   const emailInput = document.getElementById("emailInput");
   if (emailInput && !emailInput.value) {
     emailInput.value = defaultEmail;
@@ -230,18 +251,18 @@ function runInitialBaseline() {
   runAnalysis();
 }
 
-// 9. Run Deal Analysis
+// 10. Run Full Deal Analysis Pipeline
 async function runAnalysis() {
   const btn = document.getElementById("btnAnalyze");
   const btnText = document.getElementById("btnAnalyzeText");
 
-  if (btnText) btnText.textContent = "Analyzing with TabPFN & Gemma...";
+  if (btnText) btnText.textContent = "Calculating Rates & Pitch...";
   if (btn) btn.style.opacity = "0.75";
 
   const emailText = document.getElementById("emailInput").value.trim();
   const creatorProfile = {
-    creator_name: document.getElementById("creatorName").value.trim() || "Creator",
-    channel_name: document.getElementById("creatorName").value.trim() || "Channel",
+    creator_name: document.getElementById("creatorName").value.trim() || "Alex Rivers",
+    channel_name: document.getElementById("creatorName").value.trim() || "DevPulse",
     platform: document.getElementById("platformSelect").value,
     niche: document.getElementById("nicheSelect").value,
     followers: parseFloat(document.getElementById("followerCount").value) || 50000,
@@ -250,7 +271,7 @@ async function runAnalysis() {
   };
 
   try {
-    // 1. Extract Deal Details
+    // Step 1: Extract Inbound Deal specs via Gemma
     const extractRes = await fetch("/api/extract-deal", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -258,7 +279,7 @@ async function runAnalysis() {
     });
     currentDeal = await extractRes.json();
 
-    // 2. Predict Rates with TabPFN
+    // Step 2: Run TabPFN Predictive Forecaster
     const predictRes = await fetch("/api/predict-rates", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -269,7 +290,7 @@ async function runAnalysis() {
     });
     currentPrediction = await predictRes.json();
 
-    // 3. Fetch Brand Intel
+    // Step 3: Fetch Brand Intel
     const intelRes = await fetch("/api/brand-intel", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -277,7 +298,7 @@ async function runAnalysis() {
     });
     currentIntel = await intelRes.json();
 
-    // 4. Render All Views
+    // Step 4: Render All Views
     renderValuation();
     await regeneratePitch(creatorProfile);
     renderIntel();
@@ -287,12 +308,12 @@ async function runAnalysis() {
     console.error("Analysis pipeline error:", err);
     showToast("Error processing deal analysis.");
   } finally {
-    if (btnText) btnText.textContent = "Analyze Deal with AI";
+    if (btnText) btnText.textContent = "Calculate Rates & Draft Reply";
     if (btn) btn.style.opacity = "1";
   }
 }
 
-// 10. Render Valuation
+// 11. Render Valuation Tab
 function renderValuation() {
   const p = currentPrediction;
   if (!p) return;
@@ -302,7 +323,7 @@ function renderValuation() {
   const balanced = p.tiers.balanced.rate;
   currentPrice = balanced;
 
-  // KPI Metrics
+  // Key stats
   document.getElementById("metricOffer").textContent = offered > 0 ? `$${offered.toLocaleString()}` : "Not Disclosed";
   document.getElementById("metricDeliverable").textContent = currentDeal.requested_deliverables || "Standard Integration";
   document.getElementById("metricFmv").textContent = `$${fmv.toLocaleString()}`;
@@ -310,27 +331,27 @@ function renderValuation() {
   document.getElementById("metricCounter").textContent = `$${balanced.toLocaleString()}`;
   document.getElementById("metricWinProb").textContent = `${p.tiers.balanced.win_probability}%`;
 
-  // Lowball Alert
+  // Notice Banner
   const banner = document.getElementById("lowballBanner");
   const bannerText = document.getElementById("lowballText");
   if (offered > 0 && fmv > offered) {
     const diff = fmv - offered;
     const pct = Math.round((diff / fmv) * 100);
-    banner.style.display = "flex";
-    bannerText.innerHTML = `Underpricing Detected: Brand offered <strong>$${offered.toLocaleString()}</strong>, leaving <strong style="color: #f43f5e;">$${diff.toLocaleString()} (${pct}%)</strong> on the table compared to TabPFN fair market valuation.`;
+    banner.style.display = "block";
+    bannerText.innerHTML = `<strong>Underpricing Detected:</strong> The brand offered <strong>$${offered.toLocaleString()}</strong>, which is <strong>$${diff.toLocaleString()} (${pct}%)</strong> below the estimated fair market rate of $${fmv.toLocaleString()} for your niche and view metrics.`;
   } else {
     banner.style.display = "none";
   }
 
   // Tiers
   document.getElementById("tierPriceCons").textContent = `$${p.tiers.conservative.rate.toLocaleString()}`;
-  document.getElementById("tierProbCons").textContent = `${p.tiers.conservative.win_probability}% Acceptance Odds`;
+  document.getElementById("tierProbCons").textContent = `${p.tiers.conservative.win_probability}% Acceptance`;
 
   document.getElementById("tierPriceBal").textContent = `$${p.tiers.balanced.rate.toLocaleString()}`;
-  document.getElementById("tierProbBal").textContent = `${p.tiers.balanced.win_probability}% Acceptance Odds`;
+  document.getElementById("tierProbBal").textContent = `${p.tiers.balanced.win_probability}% Acceptance`;
 
   document.getElementById("tierPriceAgg").textContent = `$${p.tiers.aggressive.rate.toLocaleString()}`;
-  document.getElementById("tierProbAgg").textContent = `${p.tiers.aggressive.win_probability}% Acceptance Odds`;
+  document.getElementById("tierProbAgg").textContent = `${p.tiers.aggressive.win_probability}% Acceptance`;
 
   // Slider bounds
   const slider = document.getElementById("priceSlider");
@@ -344,7 +365,7 @@ function renderValuation() {
   drawProbabilityCurve(balanced);
 }
 
-// 11. Draw Clean Canvas Deal Probability Curve
+// 12. Draw Clean Desktop-Grade Canvas Curve (No Neon Ovals)
 function drawProbabilityCurve(highlightPrice) {
   const canvas = document.getElementById("probCanvas");
   if (!canvas) return;
@@ -372,8 +393,8 @@ function drawProbabilityCurve(highlightPrice) {
   const minPrice = curveData[0].price;
   const maxPrice = curveData[curveData.length - 1].price;
 
-  // Grid Lines
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+  // Crisp Dotted Horizontal Grid Lines
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
   ctx.lineWidth = 1;
   ctx.setLineDash([3, 4]);
 
@@ -384,17 +405,17 @@ function drawProbabilityCurve(highlightPrice) {
     ctx.lineTo(width - padding.right, y);
     ctx.stroke();
 
-    ctx.fillStyle = "rgba(148, 163, 184, 0.55)";
+    ctx.fillStyle = "#8b949e";
     ctx.font = "10px JetBrains Mono";
     ctx.textAlign = "right";
     ctx.fillText(`${prob}%`, padding.left - 8, y + 3);
   }
   ctx.setLineDash([]);
 
-  // Area Fill
+  // Area Fill under Curve (Subtle Blue)
   const areaGrad = ctx.createLinearGradient(0, padding.top, 0, height - padding.bottom);
-  areaGrad.addColorStop(0, "rgba(0, 242, 254, 0.2)");
-  areaGrad.addColorStop(1, "rgba(0, 242, 254, 0.0)");
+  areaGrad.addColorStop(0, "rgba(56, 139, 253, 0.2)");
+  areaGrad.addColorStop(1, "rgba(56, 139, 253, 0.0)");
 
   ctx.beginPath();
   curveData.forEach((pt, idx) => {
@@ -412,7 +433,7 @@ function drawProbabilityCurve(highlightPrice) {
   ctx.fillStyle = areaGrad;
   ctx.fill();
 
-  // Curve Line
+  // Solid Curve Stroke
   ctx.beginPath();
   curveData.forEach((pt, idx) => {
     const x = padding.left + ((pt.price - minPrice) / (maxPrice - minPrice)) * graphWidth;
@@ -420,12 +441,12 @@ function drawProbabilityCurve(highlightPrice) {
     if (idx === 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
   });
-  ctx.strokeStyle = "#00f2fe";
-  ctx.lineWidth = 2.5;
+  ctx.strokeStyle = "#388bfd";
+  ctx.lineWidth = 2;
   ctx.stroke();
 
   // Bottom Axis Dollar Markers
-  ctx.fillStyle = "rgba(148, 163, 184, 0.65)";
+  ctx.fillStyle = "#8b949e";
   ctx.font = "10px JetBrains Mono";
   ctx.textAlign = "center";
   const tickCount = 4;
@@ -435,7 +456,7 @@ function drawProbabilityCurve(highlightPrice) {
     ctx.fillText(`$${p.toLocaleString()}`, x, height - padding.bottom + 18);
   }
 
-  // Crosshair Point
+  // Crosshair Cursor Point
   if (highlightPrice) {
     const clampedPrice = Math.max(minPrice, Math.min(maxPrice, highlightPrice));
     const hlX = padding.left + ((clampedPrice - minPrice) / (maxPrice - minPrice)) * graphWidth;
@@ -447,9 +468,9 @@ function drawProbabilityCurve(highlightPrice) {
     const hlY = padding.top + graphHeight - (hlProb / 100) * graphHeight;
     const ev = Math.round(clampedPrice * (hlProb / 100.0));
 
-    // Vertical dashed crosshair line
+    // Vertical dashed line
     ctx.setLineDash([3, 3]);
-    ctx.strokeStyle = "rgba(0, 242, 254, 0.4)";
+    ctx.strokeStyle = "rgba(56, 139, 253, 0.5)";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(hlX, padding.top);
@@ -457,45 +478,38 @@ function drawProbabilityCurve(highlightPrice) {
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Point
-    ctx.beginPath();
-    ctx.arc(hlX, hlY, 5, 0, Math.PI * 2);
-    ctx.fillStyle = "#00f2fe";
-    ctx.fill();
-    ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    // Crisp Square Marker (Not Oval)
+    ctx.fillStyle = "#388bfd";
+    ctx.fillRect(hlX - 3.5, hlY - 3.5, 7, 7);
 
-    // Floating Tooltip Badge
-    const tooltipText = `$${clampedPrice.toLocaleString()} (${hlProb}% odds · $EV: $${ev.toLocaleString()})`;
-    ctx.font = "bold 10px JetBrains Mono";
+    // Rectangular Tooltip Badge (Not Oval)
+    const tooltipText = `$${clampedPrice.toLocaleString()} (${hlProb}% odds · EV: $${ev.toLocaleString()})`;
+    ctx.font = "600 10px JetBrains Mono";
     const textWidth = ctx.measureText(tooltipText).width;
-    const badgeW = textWidth + 16;
-    const badgeH = 22;
+    const badgeW = textWidth + 14;
+    const badgeH = 20;
     const badgeX = Math.max(padding.left, Math.min(width - padding.right - badgeW, hlX - badgeW / 2));
-    const badgeY = hlY - 30 > padding.top ? hlY - 30 : hlY + 12;
+    const badgeY = hlY - 28 > padding.top ? hlY - 28 : hlY + 10;
 
-    ctx.fillStyle = "#0c1018";
-    ctx.beginPath();
-    ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 5);
-    ctx.fill();
+    ctx.fillStyle = "#161c2e";
+    ctx.fillRect(badgeX, badgeY, badgeW, badgeH);
 
-    ctx.strokeStyle = "rgba(0, 242, 254, 0.4)";
+    ctx.strokeStyle = "#388bfd";
     ctx.lineWidth = 1;
-    ctx.stroke();
+    ctx.strokeRect(badgeX, badgeY, badgeW, badgeH);
 
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = "#f0f6fc";
     ctx.textAlign = "center";
-    ctx.fillText(tooltipText, badgeX + badgeW / 2, badgeY + 15);
+    ctx.fillText(tooltipText, badgeX + badgeW / 2, badgeY + 14);
   }
 }
 
-// 12. Regenerate Pitch
+// 13. Regenerate Counter-Pitch
 async function regeneratePitch(creatorProfile) {
   if (!creatorProfile) {
     creatorProfile = {
-      creator_name: document.getElementById("creatorName").value || "Creator",
-      channel_name: document.getElementById("creatorName").value || "Channel",
+      creator_name: document.getElementById("creatorName").value || "Alex Rivers",
+      channel_name: document.getElementById("creatorName").value || "DevPulse",
       platform: document.getElementById("platformSelect").value,
       niche: document.getElementById("nicheSelect").value,
       followers: parseFloat(document.getElementById("followerCount").value) || 50000,
@@ -535,7 +549,7 @@ async function regeneratePitch(creatorProfile) {
   }
 }
 
-// 13. Render Brand Intel
+// 14. Render Brand Intel
 function renderIntel() {
   if (!currentIntel) return;
 
@@ -556,7 +570,7 @@ function renderIntel() {
   }
 }
 
-// 14. Render DEV Submission
+// 15. Render DEV Submission Draft
 function renderSubmission(creatorProfile) {
   const brand = currentDeal ? currentDeal.brand_name : "Sponsor";
   const fmv = currentPrediction ? currentPrediction.fair_market_value : 1420;
@@ -564,7 +578,7 @@ function renderSubmission(creatorProfile) {
   const balanced = currentPrediction ? currentPrediction.tiers.balanced.rate : 1490;
 
   const markdown = `---
-title: SponsorScope AI — Creator Sponsorship Rate Forecaster & Negotiation Agent
+title: SponsorScope — Creator Sponsorship Rate Forecaster & Negotiation Agent
 published: true
 tags: devchallenge, hf26challenge, gemma, render, ai
 cover_image: https://raw.githubusercontent.com/adithya/sponsorscope/main/assets/cover.png
@@ -576,7 +590,7 @@ cover_image: https://raw.githubusercontent.com/adithya/sponsorscope/main/assets/
 
 ## 🎯 What I Built
 
-**SponsorScope AI** is a deal valuation forecaster and autonomous negotiation agent that solves the single biggest financial vulnerability for independent creators: **severe underpricing on inbound brand sponsorships**.
+**SponsorScope** is a deal valuation forecaster and autonomous negotiation agent that solves the single biggest financial vulnerability for independent creators: **severe underpricing on inbound brand sponsorships**.
 
 Creators with 10k–150k followers receive inbound commercial partnership emails every week offering lowball flat rates (e.g., $300 for a 60-second video shoutout). Lacking dedicated talent agents or verified market CPM comps, creators leave thousands of dollars on the table or counter with arbitrary numbers that lead to ghosting.
 
@@ -614,7 +628,7 @@ Unlike linear CPM calculators that multiply impressions by a flat number, TabPFN
 - **Dataset**: 1,200+ verified sponsorship deals across YouTube, Substack, and Podcasts
 - **Cloud Hosting**: Render Blueprint (\`render.yaml\`) with zero-downtime containerization
 - **Grounding**: SerpApi Knowledge Graph & Brand Sponsor Comps
-- **Frontend**: Clean Minimalist Dark UI with real-time Canvas Probability Curves
+- **Frontend**: Clean Desktop-Grade UI with real-time Canvas Probability Curves
 
 Built with ❤️ for Hacktoberfest 2026.`;
 
